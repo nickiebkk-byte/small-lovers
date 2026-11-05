@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="750" viewBox="0 0 600 750"><defs>
+       <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0D2119"/><stop offset="0.6" stop-color="#20382A"/><stop offset="1" stop-color="#07120D"/></linearGradient>
+       <linearGradient id="g" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#FFFFFF" stop-opacity=".24"/><stop offset=".18" stop-color="#AA754C"/><stop offset=".74" stop-color="#E8D4B6"/><stop offset="1" stop-color="#000000" stop-opacity=".34"/></linearGradient>
+       <linearGradient id="foam" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#FFF4D9"/><stop offset="1" stop-color="#E8D4B6"/></linearGradient>
+       <radialGradient id="light"><stop stop-color="#B1BB72" stop-opacity=".23"/><stop offset="1" stop-color="#AABB55" stop-opacity="0"/></radialGradient>
+       <filter id="blur"><feGaussianBlur stdDeviation="12"/></filter>
+       </defs>
+       <rect width="600" height="750" fill="url(#bg)"/>
+       <ellipse cx="450" cy="260" rx="320" ry="440" fill="url(#light)"/>
+       <ellipse cx="315" cy="684" rx="260" ry="40" fill="#080E0A" opacity=".5" filter="url(#blur)"/>
+       <path d="M0 652Q300 622 600 655V750H0Z" fill="#342E24" opacity=".7"/>
+       <path d="M83 657l407-38 42 72-405 18z" fill="#B0A58D" stroke="#D2C5A7" stroke-width="5"/>
+    <ellipse cx="298" cy="630" rx="155" ry="31" fill="#F2E3CD" stroke="#A88762" stroke-width="8"/>
+       <path d="M168 297h265l-21 278q-110 93-223 0Z" fill="#EED9B4" stroke="#C69F72" stroke-width="9"/>
+       <path d="M428 355q116-23 105 80q-3 57-113 68" fill="none" stroke="#EED9B4" stroke-width="37"/>
+       <ellipse cx="299" cy="301" rx="131" ry="35" fill="#653E29" stroke="#F7E5CE" stroke-width="13"/>
+       <ellipse cx="299" cy="304" rx="100" ry="22" fill="url(#foam)" opacity=".93"/>
+       <path d="M299 317c-58-38-43-62-3-34c47-28 60 3 3 34Z" fill="#F7F0DC" opacity=".95"/>
+       <path d="M230 235Q202 201 234 168M297 222Q267 185 303 158M364 235Q335 206 363 168" stroke="#FFF3DA" stroke-opacity=".4" stroke-width="7" stroke-linecap="round" fill="none"/>
+      <g transform="translate(465 611) rotate(-18)"><ellipse rx="36" ry="26" fill="#9B5D38"/><path d="M-7 -20Q8 0-7 20" fill="none" stroke="#422213" stroke-width="7"/></g></svg>

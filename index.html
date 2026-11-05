@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#10251B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="assets/pwa/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="assets/pwa/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<title>DRINK RECIPES · สูตรเครื่องดื่มทำเอง</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#14100D; --surface:#211915; --surface2:#2C221C; --line:#3B2E26;
+  --cream:#F2E7D8; --text2:#D8C9B6; --muted:#B9A693; --gold:#D4A15F; --gold2:#E8BE85; --rose:#C8705A;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--cream);font-family:'Prompt',sans-serif;font-weight:400;-webkit-font-smoothing:antialiased}
+a{color:var(--gold);text-decoration:none}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.en{font-style:italic;color:var(--muted)}
+
+/* header */
+.top{position:sticky;top:0;z-index:20;background:rgba(20,16,13,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:24px;height:68px}
+.logo img{height:40px;display:block}
+.topnav{display:flex;gap:24px;flex-grow:1}
+.topnav a{color:var(--text2);font-size:16px;padding:8px 0}
+.topnav a.on{color:var(--gold)}
+.iconbtn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--cream);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+
+/* bottom nav (mobile) */
+.bottom{position:fixed;left:0;right:0;bottom:0;z-index:20;display:none;justify-content:space-around;padding:8px 6px calc(10px + env(safe-area-inset-bottom));background:#19130F;border-top:1px solid var(--line)}
+.bottom a{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;color:var(--muted);min-width:64px;padding:4px}
+.bottom a.on{color:var(--gold)}
+@media (max-width:860px){
+  .topnav{display:none}
+  .bottom{display:flex}
+  body{padding-bottom:84px}
+  .top .wrap{height:60px}
+  .logo img{height:34px}
+}
+
+/* common */
+.eyebrow{font-size:13px;letter-spacing:3px;color:var(--gold);text-transform:uppercase}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{height:44px;padding:0 18px;border-radius:999px;border:1px solid #4A3A2F;background:transparent;color:var(--cream);font-size:15px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip[aria-pressed=true]{background:var(--gold);border-color:var(--gold);color:var(--bg);font-weight:500}
+.btn{height:52px;padding:0 26px;border-radius:16px;border:none;background:var(--gold);color:var(--bg);font-size:16px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px}
+.btn:hover{background:var(--gold2)}
+.btn.ghost{background:transparent;border:1px solid #4A3A2F;color:var(--cream)}
+h1,h2,h3{margin:0;font-weight:600}
+section{margin:0}
+
+/* home */
+.hero{background:radial-gradient(circle at 80% 10%,#6B4325 0%,#2A1D16 40%,var(--bg) 78%)}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;padding-top:56px;padding-bottom:56px}
+.hero h1{font-size:clamp(34px,5vw,56px);line-height:1.15;margin:12px 0 16px}
+.hero p{color:var(--text2);font-size:18px;line-height:1.7;margin:0 0 26px;max-width:520px;font-weight:300}
+.feature{display:flex;gap:18px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:22px;color:var(--cream)}
+.feature:hover{border-color:#5A4636}
+.feature .art{width:130px;flex-shrink:0}
+.feature h3{font-size:26px;line-height:1.2}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;padding-top:28px;padding-bottom:28px}}
+
+.block{padding:36px 0}
+.blockhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:18px}
+.blockhead h2{font-size:24px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.stat{background:var(--surface);border-radius:20px;padding:20px;color:var(--cream);border:1px solid transparent}
+.stat:hover{border-color:var(--line)}
+.stat b{display:block;font-size:40px;font-weight:600;color:var(--gold);line-height:1}
+.stat span{font-size:16px}
+.equip{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.eqcard{display:flex;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 16px;color:var(--cream);cursor:pointer;text-align:left;font-size:15px;min-height:64px}
+.eqcard[aria-pressed=true]{border-color:var(--gold);background:#2E2219}
+.eqcard small{display:block;color:var(--muted);font-size:13px}
+
+/* recipe grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.card{display:flex;gap:16px;background:var(--surface);border:1px solid #2F241D;border-radius:22px;padding:16px;color:var(--cream);min-height:150px;transition:border-color .15s,transform .15s}
+.card:hover{border-color:#5A4636;transform:translateY(-2px)}
+.card .thumb{width:80px;flex-shrink:0;border-radius:16px;background:var(--surface2);display:flex;align-items:center;justify-content:center}
+.card .meta{display:flex;flex-direction:column;gap:3px;min-width:0}
+.card .no{font-size:12px;color:var(--gold)}
+.card .th{font-size:19px;font-weight:600;line-height:1.3}
+.card .spec{font-size:14px;line-height:1.5;color:var(--text2);margin-top:4px;font-weight:300}
+.card .foot{font-size:13px;color:var(--muted);margin-top:auto;padding-top:6px}
+.empty{padding:40px;text-align:center;color:var(--muted);background:var(--surface);border-radius:20px}
+
+.pagehead{padding:48px 0 24px;background:radial-gradient(circle at 85% 0%,#5A3720 0%,var(--bg) 60%)}
+.pagehead h1{font-size:clamp(30px,4.5vw,46px);margin:10px 0 10px}
+.pagehead p{color:var(--text2);margin:0 0 22px;font-size:17px;font-weight:300;max-width:640px;line-height:1.7}
+.search{display:flex;align-items:center;gap:10px;height:50px;padding:0 18px;border-radius:999px;background:var(--surface);border:1px solid var(--line);max-width:460px;margin-bottom:16px}
+.search input{flex-grow:1;background:transparent;border:none;color:var(--cream);font:inherit;font-size:16px;outline:none;min-width:0}
+.search input::placeholder{color:var(--muted)}
+.filters{display:flex;flex-direction:column;gap:12px}
+.filterlabel{font-size:13px;color:var(--muted)}
+select.eqsel{height:44px;border-radius:999px;border:1px solid #4A3A2F;background:var(--surface);color:var(--cream);font:inherit;font-size:15px;padding:0 16px}
+
+/* detail */
+.dhero{background:radial-gradient(circle at 70% 30%,#7A4A26 0%,#3A2518 40%,var(--bg) 85%)}
+.dhero .wrap{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center;padding-top:28px;padding-bottom:40px}
+.dhero .art{width:240px}
+.back{display:inline-flex;align-items:center;gap:8px;color:var(--text2);font-size:15px;height:44px}
+.dhero h1{font-size:clamp(32px,5vw,50px);line-height:1.2;margin:8px 0 2px}
+.dhero .en{font-size:20px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tag{padding:6px 14px;border-radius:999px;background:rgba(33,25,21,.85);font-size:14px}
+.dbody{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;padding:32px 0 56px}
+@media (max-width:860px){
+  .dhero .wrap{grid-template-columns:1fr;justify-items:center;text-align:center;gap:10px}
+  .dhero .art{width:180px}
+  .tags{justify-content:center}
+  .dbody{grid-template-columns:1fr;gap:28px}
+}
+.panel h2{font-size:22px;margin-bottom:14px}
+.inghead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:6px}
+.stepper{display:flex;align-items:center;gap:4px;background:var(--surface);border-radius:999px;padding:4px}
+.stepper button{width:44px;height:44px;border-radius:50%;border:none;background:var(--surface2);color:var(--cream);font-size:22px;cursor:pointer}
+.stepper button.plus{background:var(--gold);color:var(--bg)}
+.stepper span{min-width:72px;text-align:center;font-size:15px}
+.ing{list-style:none;margin:0 0 30px;padding:0}
+.ing li{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid var(--surface2);font-size:16px}
+.ing li b{color:var(--gold);font-weight:500;white-space:nowrap}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px;counter-reset:s}
+.steps li{display:flex;gap:14px;font-size:16px;line-height:1.65;font-weight:300}
+.steps li::before{counter-increment:s;content:counter(s);flex-shrink:0;width:34px;height:34px;border-radius:50%;border:1px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:400}
+.tip{margin:22px 0 0;padding:16px 18px;border-radius:16px;background:var(--surface);font-size:15px;line-height:1.65;color:var(--text2);font-weight:300}
+.tip b{color:var(--gold);font-weight:500}
+.timer{margin-top:22px;display:flex;flex-direction:column;gap:12px}
+.timer .clock{font-size:46px;font-weight:600;color:var(--gold);text-align:center;font-variant-numeric:tabular-nums;display:none}
+.timer.run .clock{display:block}
+.prod{display:flex;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;color:var(--cream);margin-bottom:12px}
+.prod:hover{border-color:#5A4636}
+.prod .ico{width:60px;height:60px;border-radius:14px;background:var(--surface2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.prod small{display:block;font-size:13px;color:var(--muted)}
+.prod b{display:block;font-size:16px;font-weight:500}
+.prod .price{font-size:15px;color:var(--gold)}
+.sticky{position:sticky;top:90px}
+.fav{color:var(--rose)}
+.fav[aria-pressed=true] svg{fill:currentColor}
+
+.foot{border-top:1px solid var(--line);padding:28px 0 36px;color:var(--muted);font-size:14px}
+.foot .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}
+.foot img{height:30px;opacity:.9}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* --- HERO VISUAL · v5 aesthetic and responsive photo system --- */
+:root {--bg:#0D1D15;--surface:#19291E;--surface2:#243A29;--line:#35503B;--cream:#FFF8E7;--text2:#DFE1CE;--muted:#B5BDA6;--gold:#DAB873;--gold2:#F0D592;--rose:#E99E85}
+body {letter-spacing:0;overflow-x:hidden;background:#0D1D15}
+.brandname {display:inline-flex;align-items:center;gap:9px;color:var(--cream);font-weight:600;font-size:17px;white-space:nowrap;letter-spacing:.04em}
+.brandname b {font-weight:700;color:var(--gold)}
+.brandcup {width:38px;height:38px;border-radius:50%;background:#25422D;display:grid;place-items:center}
+.brandcup img {width:38px;height:38px;object-fit:contain}
+.footer-brand {font-size:12px;font-weight:600;letter-spacing:.16em;color:var(--gold)}
+.top {background:rgba(11,27,18,.93);border-bottom-color:#2D4230}
+.hero {min-height:450px;position:relative;isolation:isolate;background:linear-gradient(90deg,#0D2019 0%,#13241D 38%,transparent 90%), url('assets/drinks/hero-iced-latte.webp') right center / auto 110% no-repeat, #0C2019}
+.hero::after {content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(8,24,17,.88),rgba(8,24,17,.45) 53%,rgba(8,24,17,.05) 100%)}
+.hero .wrap {min-height:450px;grid-template-columns:1.05fr .95fr;padding-top:50px;padding-bottom:50px;align-items:end}
+.hero h1 {font-size:clamp(38px,5.4vw,66px);line-height:1.18;letter-spacing:-.025em;text-shadow:0 4px 40px #06190db0}
+.hero h1 em{font-style:normal;color:#E6C37F}
+.hero p {font-weight:400;max-width:580px;text-shadow:0 2px 20px #06190d}
+.feature {align-self:end;margin-left:auto;max-width:430px;width:100%;background:rgba(19,40,27,.86);border:1px solid #67825977;backdrop-filter:blur(14px);box-shadow:0 20px 50px #07150a7a;border-radius:24px;padding:12px 18px 12px 12px}
+.feature .art {width:126px;height:138px;overflow:hidden;flex-shrink:0;border-radius:18px;background:#1b3323}
+.featurephoto {width:100%;height:100%;object-fit:cover;display:block}
+.feature h3{font-size:clamp(20px,2.2vw,27px)}
+.stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stat{background:linear-gradient(145deg,#1B3222,#152A1D);border:1px solid #314735}
+.stat b{font-size:38px}
+.equip{grid-template-columns:repeat(3,minmax(0,1fr))}
+.eqcard{background:#1B3121;border-color:#34523B;min-width:0;gap:10px;min-height:82px}
+.symbol{width:52px;height:52px;object-fit:contain;flex-shrink:0}
+.navsymbol{width:24px;height:24px;object-fit:contain;display:inline-block}
+.tabicon{width:22px;height:22px;object-fit:contain;display:inline-block}
+.fav[aria-pressed=true] img{filter:drop-shadow(0 0 4px #D9686E)}
+.grid{grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:19px}
+.card{display:flex;flex-direction:column;gap:0;padding:0;overflow:hidden;min-width:0;min-height:0;border-radius:20px;background:linear-gradient(155deg,#1E3525,#14261A);border-color:#314B36;box-shadow:0 9px 25px #030b0670}
+.card:hover{transform:translateY(-4px);border-color:#8FA472}
+.card .thumb{width:100%;height:auto;aspect-ratio:1.42;border-radius:0;background:#213b2b;overflow:hidden}
+.drinkphoto{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
+.card:hover .drinkphoto{transform:scale(1.04)}
+.card .meta{padding:14px 16px 17px;gap:2px;flex-grow:1}
+.card .no{color:#F2C779;font-size:12px;letter-spacing:.02em}
+.card .th{font-size:21px;line-height:1.35}
+.card .en{font-size:13px;line-height:1.2;margin-top:2px}
+.card .spec{font-size:13px;line-height:1.55;margin-top:9px;min-height:39px}
+.card .foot{font-size:12px;margin-top:auto;padding-top:12px}
+.pagehead{background:radial-gradient(circle at 80% 0%,#335A31 0%,var(--bg) 64%);padding:34px 0 22px}
+.dhero{background:linear-gradient(120deg,#183823,#0B1C15 75%)}
+.dhero .wrap{grid-template-columns:minmax(240px,390px) 1fr;gap:50px;padding-top:34px;padding-bottom:34px}
+.dhero .art{width:100%;height:min(48vw,420px);max-height:420px;border-radius:28px;overflow:hidden;box-shadow:0 15px 50px #050d0677}
+.detailphoto{display:block;width:100%;height:100%;object-fit:cover}
+.dhero h1{line-height:1.22}
+.tag{background:#29422F;border:1px solid #4C6C48}
+.btn,.chip{transition:background .2s,transform .2s}
+.btn:hover{transform:translateY(-1px)}
+.prod {background:#1C3324;border-color:#3A523B}
+.prod .ico{background:#26452E}
+.prod .symbol{width:54px;height:54px}
+.bottom {background:rgba(11,28,18,.96);border-color:#3B523C;backdrop-filter:blur(15px)}
+.foot{background:#0A1A11;border-color:#2C442F}
+@media(max-width:860px){
+  .hero{background-position:58% center;background-size:auto 100%;}
+  .hero .wrap{min-height:590px;display:flex;flex-direction:column;align-items:stretch;justify-content:space-between;padding-top:30px;padding-bottom:24px;gap:32px}
+  .hero::after{background:linear-gradient(180deg,rgba(7,22,14,.85) 0%,rgba(7,22,14,.6) 30%,rgba(7,22,14,.32) 59%,rgba(7,22,14,.89) 100%)}
+  .hero h1{font-size:clamp(33px,8vw,50px)}
+  .hero p{font-size:15px;max-width:430px;margin-bottom:18px}
+  .feature{max-width:100%;min-height:126px}
+  .feature .art{width:108px;height:114px}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .equip{grid-template-columns:1fr}
+  .dhero .wrap{grid-template-columns:1fr;text-align:left;justify-items:stretch;gap:20px}
+  .dhero .art{width:100%;height:auto;aspect-ratio:1.42;max-height:none}
+  .tags{justify-content:flex-start}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .card .thumb{aspect-ratio:1/1.05}
+  .card .meta{padding:10px 11px 13px}
+  .card .th{font-size:17px}
+  .card .spec{font-size:12px}
+  .card .foot{font-size:11px}
+  .top .wrap{height:62px}
+}
+@media(max-width:430px){
+ .wrap{padding-left:14px;padding-right:14px}
+ .brandname{font-size:14px}
+ .hero h1{font-size:34px}
+ .hero .wrap{min-height:590px}
+ .hero .chips{gap:8px}
+ .hero .btn{min-height:46px;height:auto;padding:12px 14px;font-size:14px}
+ .feature h3{font-size:19px}
+ .stat {padding:16px}
+ .stat b {font-size:30px}
+ .block{padding:24px 0}
+ .grid{gap:10px}
+ .card .spec{min-height:0}
+ .pagehead{padding-top:24px}
+ .dhero .art{aspect-ratio:1/1;}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brandname" href="#/" aria-label="กลับหน้าแรก"><span class="brandcup"><img src="assets/icons/coffee.png" alt="" /></span><span>DRINK <b>RECIPES</b></span></a>
+    <nav class="topnav" aria-label="เมนูหลัก">
+      <a href="#/" data-nav="home">หน้าแรก</a>
+      <a href="#/recipes" data-nav="recipes">สูตรทั้งหมด</a>
+      <a href="#/recipes?fav=1" data-nav="fav">สูตรโปรด</a>
+      <a href="#/shop" data-nav="shop">เครื่องชงและเมล็ด</a>
+    </nav>
+    <a class="iconbtn" href="#/recipes?focus=1" aria-label="ค้นหาสูตร"><img class="navsymbol" src="assets/icons/search.png" alt="" /></a>
+  </div>
+</header>
+
+<main id="app" tabindex="-1"></main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span class="footer-brand">DRINK RECIPES</span>
+    <span>สูตรเครื่องดื่มทำเอง · กาแฟ ชา และเมนูปั่น</span>
+  </div>
+</footer>
+
+<nav class="bottom" aria-label="เมนูหลัก">
+  <a href="#/" data-nav="home"><img class="navsymbol" src="assets/icons/home.png" alt="" />หน้าแรก</a>
+  <a href="#/recipes" data-nav="recipes"><img class="navsymbol" src="assets/icons/recipes.png" alt="" />สูตร</a>
+  <a href="#/recipes?fav=1" data-nav="fav"><img class="navsymbol" src="assets/icons/heart.png" alt="" />โปรด</a>
+  <a href="#/shop" data-nav="shop"><img class="navsymbol" src="assets/icons/espresso.png" alt="" />ร้าน</a>
+</nav>
+
+<script>
+/* ======================================================
+   แก้ข้อมูลสินค้าตรงนี้ (ชื่อรุ่น ราคา ลิงก์ไปหน้าสินค้า)
+   ====================================================== */
+const PRODUCTS = {
+  espresso: { type: 'เครื่องชงเอสเปรสโซ',  name: '[ชื่อรุ่นเครื่องชง]',  price: '[ราคา]',          url: '#' },
+  grinder:  { type: 'เครื่องบดเมล็ดกาแฟ',   name: '[ชื่อรุ่นเครื่องบด]',  price: '[ราคา]',          url: '#' },
+  beans:    { type: 'เมล็ดกาแฟคั่ว',         name: '[ชื่อเมล็ดกาแฟ]',      price: '[ราคา / 250 ก.]', url: '#' },
+  blender:  { type: 'เครื่องปั่นน้ำผลไม้',    name: '[ชื่อรุ่นเครื่องปั่น]', price: '[ราคา]',          url: '#' },
+  drip:     { type: 'ชุดดริปกาแฟ',           name: '[ชื่อชุดดริป]',        price: '[ราคา]',          url: '#' },
+  kettle:   { type: 'กาต้มน้ำไฟฟ้า',          name: '[ชื่อรุ่นกาต้มน้ำ]',    price: '[ราคา]',          url: '#' }
+};
+
+const EQUIP = {
+  E:  { label: 'เครื่องเอสเปรสโซ',          prods: ['espresso', 'grinder', 'beans'] },
+  EB: { label: 'เอสเปรสโซ + เครื่องปั่น',    prods: ['espresso', 'blender', 'beans'] },
+  B:  { label: 'เครื่องปั่น',                prods: ['blender'] },
+  D:  { label: 'อุปกรณ์ดริป',                prods: ['drip', 'grinder', 'beans'] },
+  N:  { label: 'ไม่ต้องใช้เครื่อง',           prods: ['kettle'] }
+};
+const CAT = { coffee: 'กาแฟ', tea: 'ชา', blend: 'ปั่น / สมูทตี้', soda: 'โซดา / สดชื่น' };
+const W = '#F2E7D8';
+
+/* ข้อมูลสูตร: ing = [ชื่อ, ปริมาณต่อ 1 แก้ว, หน่วย] (ปริมาณ null = ตามชอบ) */
+const R = [
+ {cat:'coffee',th:'เอสเปรสโซ',en:'Espresso',time:'3 นาที',level:'ง่าย',eq:'E',temp:'hot',color:'#3A1F12',top:'#A86A3C',spec:'18 ก. เข้า 36 ก. ออก · 25–30 วินาที',timer:28,
+  ing:[['เมล็ดกาแฟบดละเอียด',18,'ก.'],['น้ำกาแฟที่ได้',36,'ก.']],
+  steps:['อุ่นเครื่องและถ้วยให้ร้อน','บดกาแฟละเอียด เกลี่ยให้เรียบแล้วกดแทมป์ให้แน่นสม่ำเสมอ','สกัด 25–30 วินาที ให้ได้น้ำกาแฟประมาณ 36 ก.','เสิร์ฟทันทีขณะครีมายังหนา'],
+  tip:'ถ้ารสเปรี้ยวแหลม ให้บดละเอียดขึ้น ถ้าขมฝาด ให้บดหยาบลง'},
+ {cat:'coffee',th:'อเมริกาโน่',en:'Americano',time:'3 นาที',level:'ง่าย',eq:'E',temp:'hot',color:'#2B170D',top:'#7A4626',spec:'ช็อตคู่ + น้ำร้อน 150 มล.',timer:28,
+  ing:[['เอสเปรสโซช็อตคู่',36,'ก.'],['น้ำร้อน',150,'มล.']],
+  steps:['เทน้ำร้อนลงแก้วก่อน','สกัดเอสเปรสโซลงบนน้ำร้อนโดยตรง เพื่อเก็บครีมาไว้ด้านบน','ถ้าต้องการแบบเย็น ใช้น้ำเย็นแทนน้ำร้อนแล้วเติมน้ำแข็ง']},
+ {cat:'coffee',th:'คาปูชิโน่',en:'Cappuccino',time:'5 นาที',level:'ปานกลาง',eq:'E',temp:'hot',color:'#8A5A3B',top:W,spec:'ช็อตคู่ + นมฟองหนา 120 มล.',timer:28,
+  ing:[['เอสเปรสโซช็อตคู่',36,'ก.'],['นมสดเย็น',120,'มล.'],['ผงโกโก้ (โรยหน้า)',null,'']],
+  steps:['สกัดเอสเปรสโซลงถ้วยขนาด 6 ออนซ์','สตีมนมให้ได้ฟองหนา อุณหภูมิ 60–65°C','เทนมลงกลางถ้วย ให้ฟองปกคลุมหนาราว 1.5 ซม.','โรยผงโกโก้บาง ๆ ตามชอบ']},
+ {cat:'coffee',th:'ลาเต้',en:'Caffè Latte',time:'5 นาที',level:'ปานกลาง',eq:'E',temp:'hot',color:'#B98B62',top:W,spec:'ช็อตคู่ + นมสตีม 200 มล.',timer:28,
+  ing:[['เอสเปรสโซช็อตคู่',36,'ก.'],['นมสดเย็น',200,'มล.']],
+  steps:['สกัดเอสเปรสโซลงแก้ว 10 ออนซ์','สตีมนมให้เนื้อเนียน ฟองบางประมาณ 1 ซม.','เทนมจากสูงลงต่ำ แล้วลดระดับเหยือกเพื่อวาดลาเต้อาร์ต'],
+  tip:'เคาะเหยือกและหมุนวนนมก่อนเท ฟองจะเนียนเงาเหมาะกับลาเต้อาร์ต'},
+ {cat:'coffee',th:'แฟลตไวท์',en:'Flat White',time:'5 นาที',level:'ยาก',eq:'E',temp:'hot',color:'#9C6B47',top:'#D9C3A5',spec:'ริสเตรตโตคู่ + นมฟองบาง 110 มล.',timer:20,
+  ing:[['ริสเตรตโตคู่ (18 ก. ได้ 25 ก.)',25,'ก.'],['นมสดเย็น',110,'มล.']],
+  steps:['สกัดริสเตรตโต ใช้กาแฟ 18 ก. ได้น้ำกาแฟราว 25 ก. ใน 18–22 วินาที','สตีมนมให้ฟองบางมาก แทบไม่มีฟองลอย','เทนมช้า ๆ ให้ผสมกับกาแฟจนผิวหน้าเรียบเป็นเงา']},
+ {cat:'coffee',th:'มอคค่า',en:'Mocha',time:'6 นาที',level:'ปานกลาง',eq:'E',temp:'hot',color:'#5C3524',top:W,spec:'ช็อตคู่ + ช็อกโกแลต 20 ก. + นม 180 มล.',timer:28,
+  ing:[['ซอสช็อกโกแลต',20,'ก.'],['เอสเปรสโซช็อตคู่',36,'ก.'],['นมสด',180,'มล.'],['วิปครีม',null,'']],
+  steps:['ใส่ซอสช็อกโกแลตในแก้ว','สกัดเอสเปรสโซลงบนซอส คนให้ละลายเข้ากัน','สตีมนมแล้วเทลงไป','แต่งด้วยวิปครีมและซอสช็อกโกแลตตามชอบ']},
+ {cat:'coffee',th:'คาราเมลมัคคิอาโต้',en:'Caramel Macchiato',time:'6 นาที',level:'ปานกลาง',eq:'E',temp:'iced',color:'#C9965E',top:'#B0652A',spec:'ไซรัปวานิลลา + นม + ช็อต + ราดคาราเมล',timer:28,
+  ing:[['ไซรัปวานิลลา',15,'มล.'],['นมสดเย็น',180,'มล.'],['น้ำแข็ง',150,'ก.'],['เอสเปรสโซช็อตคู่',36,'ก.'],['ซอสคาราเมล',10,'ก.']],
+  steps:['ใส่ไซรัปวานิลลาที่ก้นแก้ว','เติมน้ำแข็งและนมเย็น','เทเอสเปรสโซช้า ๆ ไว้บนสุดให้เป็นชั้น','ราดซอสคาราเมลเป็นลายตาราง']},
+ {cat:'coffee',th:'เอสเปรสโซโทนิค',en:'Espresso Tonic',time:'4 นาที',level:'ง่าย',eq:'E',temp:'iced',color:'#D8D2B8',top:'#6B3A1F',spec:'ช็อตคู่ + โทนิค 120 มล. + ส้มฝาน',timer:28,
+  ing:[['เอสเปรสโซช็อตคู่',36,'ก.'],['โทนิคแช่เย็น',120,'มล.'],['น้ำแข็ง',150,'ก.'],['ส้มฝาน',1,'ชิ้น']],
+  steps:['เติมน้ำแข็งให้เต็มแก้ว','เทโทนิคที่แช่เย็นจัดช้า ๆ ตามผนังแก้ว ไม่ให้ฟองหาย','สกัดช็อตคู่ กาแฟบด 18 ก. ได้น้ำกาแฟ 36 ก. ใน 25–30 วินาที','ค่อย ๆ เทช็อตผ่านหลังช้อนให้ลอยเป็นชั้น แต่งด้วยส้มฝาน'],
+  tip:'เมล็ดคั่วอ่อนถึงกลางที่มีโน้ตส้มหรือเบอร์รี เข้ากับความขมของโทนิคได้ดีกว่าคั่วเข้ม'},
+ {cat:'coffee',th:'เดอร์ตี้',en:'Dirty Coffee',time:'3 นาที',level:'ปานกลาง',eq:'E',temp:'iced',color:'#E8DCC8',top:'#4A2414',spec:'นมเย็นจัด 120 มล. + ริสเตรตโตร้อนราดบน',timer:20,
+  ing:[['นมสดเย็นจัด',120,'มล.'],['ริสเตรตโตคู่',25,'ก.']],
+  steps:['แช่แก้วในช่องฟรีซ 10 นาที','เทนมเย็นจัดลงแก้ว ไม่ใส่น้ำแข็ง','สกัดริสเตรตโตแล้วราดลงตรงกลางทันที','ดื่มเลยโดยไม่ต้องคน เพื่อรสที่ไล่จากเข้มไปนุ่ม']},
+ {cat:'coffee',th:'อเมริกาโน่มะพร้าว',en:'Coconut Americano',time:'4 นาที',level:'ง่าย',eq:'E',temp:'iced',color:'#4A2A18',top:'#8A5A3B',spec:'ช็อตคู่ + น้ำมะพร้าว 150 มล.',timer:28,
+  ing:[['น้ำมะพร้าวแช่เย็น',150,'มล.'],['น้ำแข็ง',150,'ก.'],['เอสเปรสโซช็อตคู่',36,'ก.']],
+  steps:['เติมน้ำแข็งลงแก้ว','เทน้ำมะพร้าวเย็น','ราดเอสเปรสโซด้านบน คนก่อนดื่ม']},
+ {cat:'coffee',th:'อัฟโฟกาโต้',en:'Affogato',time:'3 นาที',level:'ง่าย',eq:'E',temp:'hot',color:'#EDE3D1',top:'#6B3A1F',spec:'ไอศกรีมวานิลลา 1 สกู๊ป + ช็อตร้อน',timer:28,
+  ing:[['ไอศกรีมวานิลลา',1,'สกู๊ป'],['เอสเปรสโซช็อตคู่',36,'ก.']],
+  steps:['ตักไอศกรีมใส่ถ้วยที่แช่เย็นไว้','สกัดเอสเปรสโซร้อน ๆ','เทช็อตราดไอศกรีมตอนเสิร์ฟ แล้วทานทันที']},
+ {cat:'coffee',th:'โคลด์บรูว์',en:'Cold Brew',time:'12 ชม.',level:'ง่าย',eq:'D',temp:'iced',color:'#3A2012',top:'#5A3420',spec:'บดหยาบ 100 ก. ต่อน้ำ 1 ลิตร · แช่ 12–16 ชม.',unit:'ขวด',
+  ing:[['กาแฟบดหยาบ',100,'ก.'],['น้ำดื่มอุณหภูมิห้อง',1000,'มล.']],
+  steps:['ใส่กาแฟบดหยาบลงขวดโหล เทน้ำแล้วคนให้กาแฟเปียกทั่ว','ปิดฝา แช่ตู้เย็น 12–16 ชั่วโมง','กรองด้วยกระดาษกรองหรือผ้าขาวบาง','เสิร์ฟกับน้ำแข็ง ผสมน้ำหรือนมอัตรา 1:1 ตามชอบ'],
+  tip:'เก็บในตู้เย็นได้ราว 5–7 วัน'},
+ {cat:'coffee',th:'ดริป V60',en:'Pour Over',time:'5 นาที',level:'ปานกลาง',eq:'D',temp:'hot',color:'#5A2E17',top:'#7A4626',spec:'กาแฟ 15 ก. : น้ำ 250 มล. · 92–94°C',timer:165,
+  ing:[['กาแฟบดกลางค่อนละเอียด',15,'ก.'],['น้ำร้อน 92–94°C',250,'มล.']],
+  steps:['พับกระดาษกรอง ล้างด้วยน้ำร้อนแล้วเทน้ำทิ้ง','ใส่กาแฟ เทน้ำ 30 มล. ให้กาแฟบลูม 30 วินาที','เทน้ำวนเป็นวงก้นหอยจากกลางออกนอก จนครบ 250 มล.','เวลารวมประมาณ 2:30–3:00 นาที']},
+ {cat:'coffee',th:'กาแฟโบราณ',en:'Thai Iced Coffee',time:'8 นาที',level:'ง่าย',eq:'D',temp:'iced',color:'#A06A3E',top:W,spec:'ผงกาแฟโบราณ 30 ก. + นมข้น + นมจืด',
+  ing:[['ผงกาแฟโบราณ',30,'ก.'],['น้ำร้อน',150,'มล.'],['นมข้นหวาน',30,'ก.'],['น้ำตาลทราย',10,'ก.'],['นมข้นจืด (ราดหน้า)',30,'มล.'],['น้ำแข็ง',200,'ก.']],
+  steps:['ใส่ผงกาแฟในถุงชง เทน้ำร้อนผ่าน แล้วเทกลับไปมา 2–3 รอบ','ผสมนมข้นหวานและน้ำตาลขณะยังร้อน คนให้ละลาย','เทลงแก้วน้ำแข็ง ราดนมข้นจืดด้านบน']},
+ {cat:'tea',th:'ชาไทย',en:'Thai Milk Tea',time:'10 นาที',level:'ง่าย',eq:'N',temp:'iced',color:'#D9824A',top:W,spec:'ชาไทย 25 ก. ชง 5 นาที + นมข้น + นมจืด',
+  ing:[['ผงชาไทย',25,'ก.'],['น้ำร้อน',200,'มล.'],['นมข้นหวาน',30,'ก.'],['น้ำตาลทราย',10,'ก.'],['นมข้นจืด (ราดหน้า)',30,'มล.'],['น้ำแข็ง',200,'ก.']],
+  steps:['แช่ผงชาในน้ำร้อน 5 นาที แล้วกรองด้วยถุงชง','ผสมนมข้นหวานและน้ำตาลขณะร้อน','เทลงแก้วน้ำแข็ง ราดนมข้นจืดให้เป็นชั้นสวย']},
+ {cat:'tea',th:'มัทฉะลาเต้',en:'Matcha Latte',time:'4 นาที',level:'ง่าย',eq:'N',temp:'iced',color:'#8FA65A',top:'#C4D19A',spec:'มัทฉะ 3 ก. + น้ำร้อน 40 มล. + นม 180 มล.',
+  ing:[['ผงมัทฉะ',3,'ก.'],['น้ำร้อน 80°C',40,'มล.'],['นมสด',180,'มล.'],['น้ำเชื่อม',10,'มล.'],['น้ำแข็ง',120,'ก.']],
+  steps:['ร่อนผงมัทฉะลงถ้วยเพื่อไม่ให้จับตัวเป็นก้อน','เทน้ำร้อน 80°C แล้วตีด้วยแปรงฉะเซ็นเป็นรูปตัว M จนขึ้นฟอง','เติมน้ำเชื่อม เทนมลงแก้วน้ำแข็ง แล้วราดมัทฉะด้านบน'],
+  tip:'อย่าใช้น้ำเดือด จะทำให้มัทฉะขมและสีหม่น'},
+ {cat:'tea',th:'เดอร์ตี้มัทฉะ',en:'Dirty Matcha',time:'5 นาที',level:'ปานกลาง',eq:'E',temp:'iced',color:'#7E8F4E',top:'#4A2414',spec:'มัทฉะลาเต้เย็น + ช็อตเอสเปรสโซด้านบน',timer:28,
+  ing:[['ผงมัทฉะ',3,'ก.'],['น้ำร้อน 80°C',40,'มล.'],['นมสด',150,'มล.'],['น้ำแข็ง',120,'ก.'],['เอสเปรสโซช็อตคู่',36,'ก.']],
+  steps:['ตีมัทฉะกับน้ำร้อนจนเนียน','เทนมลงแก้วน้ำแข็ง ตามด้วยมัทฉะ','สกัดเอสเปรสโซแล้วเทช้า ๆ ไว้บนสุด ให้เห็นสามชั้น']},
+ {cat:'tea',th:'โฮจิฉะลาเต้',en:'Hojicha Latte',time:'4 นาที',level:'ง่าย',eq:'N',temp:'hot',color:'#A9774F',top:W,spec:'โฮจิฉะ 4 ก. + นมร้อน 200 มล.',
+  ing:[['ผงโฮจิฉะ',4,'ก.'],['น้ำร้อน',40,'มล.'],['นมสด',200,'มล.'],['น้ำผึ้ง',10,'มล.']],
+  steps:['ตีผงโฮจิฉะกับน้ำร้อนจนละลายเนียน','อุ่นหรือสตีมนมให้ร้อน','เทนมลงไป เติมน้ำผึ้งตามชอบ']},
+ {cat:'tea',th:'ลอนดอนฟ็อก',en:'London Fog',time:'6 นาที',level:'ง่าย',eq:'N',temp:'hot',color:'#C4A98A',top:W,spec:'เอิร์ลเกรย์ + ไซรัปวานิลลา + นมฟอง',
+  ing:[['ชาเอิร์ลเกรย์',1,'ซอง'],['น้ำร้อน',120,'มล.'],['ไซรัปวานิลลา',15,'มล.'],['นมสด',120,'มล.']],
+  steps:['แช่ชาในน้ำร้อน 4 นาที แล้วยกซองออก','ผสมไซรัปวานิลลา','สตีมนมให้มีฟอง แล้วเทลงบนชา']},
+ {cat:'tea',th:'ชัยลาเต้',en:'Chai Latte',time:'8 นาที',level:'ปานกลาง',eq:'N',temp:'hot',color:'#B07B52',top:'#E6D2B5',spec:'ชาดำต้มเครื่องเทศ + นม + น้ำผึ้ง',
+  ing:[['ชาดำ',6,'ก.'],['อบเชย',1,'แท่ง'],['กานพลู',3,'ดอก'],['ขิงฝาน',3,'ชิ้น'],['น้ำ',150,'มล.'],['นมสด',150,'มล.'],['น้ำผึ้ง',15,'มล.']],
+  steps:['ต้มน้ำกับอบเชย กานพลู และขิง 3 นาที','ใส่ชาดำ เคี่ยวต่อ 2 นาที','เติมนม อุ่นจนเกือบเดือด แล้วกรอง','เติมน้ำผึ้ง คนให้เข้ากัน']},
+ {cat:'tea',th:'ชามะนาว',en:'Iced Lemon Tea',time:'5 นาที',level:'ง่าย',eq:'N',temp:'iced',color:'#C2662B',top:'#E8C35A',spec:'ชาดำเข้มข้น + มะนาว + น้ำเชื่อม',
+  ing:[['ชาดำ',6,'ก.'],['น้ำร้อน',150,'มล.'],['น้ำมะนาว',20,'มล.'],['น้ำเชื่อม',25,'มล.'],['น้ำแข็ง',150,'ก.']],
+  steps:['แช่ชาในน้ำร้อน 4 นาที แล้วกรอง','ผสมน้ำเชื่อมขณะชายังร้อน','เทลงแก้วน้ำแข็ง เติมน้ำมะนาวแล้วคน']},
+ {cat:'tea',th:'อู่หลงพีช',en:'Peach Oolong',time:'6 นาที',level:'ง่าย',eq:'N',temp:'iced',color:'#D79A5B',top:'#F0C08A',spec:'อู่หลงเย็น + พีชบด + โซดา',
+  ing:[['ชาอู่หลง',5,'ก.'],['น้ำร้อน 90°C',150,'มล.'],['พีชบด',60,'ก.'],['ไซรัปพีช',15,'มล.'],['โซดา',60,'มล.'],['น้ำแข็ง',150,'ก.']],
+  steps:['ชงอู่หลงในน้ำ 90°C นาน 3 นาที แล้วกรองให้เย็น','ใส่พีชบดและไซรัปที่ก้นแก้ว ตามด้วยน้ำแข็ง','เทชาอู่หลงลงไป แล้วเติมโซดาด้านบน']},
+ {cat:'blend',th:'มอคค่าปั่น',en:'Mocha Frappé',time:'5 นาที',level:'ง่าย',eq:'EB',temp:'blend',color:'#6E4330',top:W,spec:'ช็อตคู่ + ช็อกโกแลต + นม + น้ำแข็ง',timer:28,
+  ing:[['เอสเปรสโซช็อตคู่',36,'ก.'],['ซอสช็อกโกแลต',25,'ก.'],['นมสด',120,'มล.'],['น้ำเชื่อม',10,'มล.'],['น้ำแข็ง',200,'ก.']],
+  steps:['สกัดเอสเปรสโซแล้วพักให้เย็นลงเล็กน้อย','ใส่ทุกอย่างลงโถปั่น','ปั่นความเร็วสูง 40–50 วินาทีจนเนียน','เทใส่แก้ว แต่งด้วยวิปครีมและซอสช็อกโกแลต']},
+ {cat:'blend',th:'คาราเมลปั่น',en:'Caramel Frappé',time:'5 นาที',level:'ง่าย',eq:'EB',temp:'blend',color:'#C08A55',top:W,spec:'ช็อตคู่ + คาราเมล + นม + วิปครีม',timer:28,
+  ing:[['เอสเปรสโซช็อตคู่',36,'ก.'],['ซอสคาราเมล',25,'ก.'],['นมสด',120,'มล.'],['น้ำแข็ง',200,'ก.'],['วิปครีม',null,'']],
+  steps:['สกัดเอสเปรสโซ','ปั่นกาแฟ ซอสคาราเมล นม และน้ำแข็ง 40–50 วินาที','เทใส่แก้ว บีบวิปครีม แล้วราดคาราเมล']},
+ {cat:'blend',th:'มัทฉะปั่น',en:'Matcha Frappé',time:'4 นาที',level:'ง่าย',eq:'B',temp:'blend',color:'#9AB065',top:W,spec:'มัทฉะ 4 ก. + นม + น้ำแข็ง + น้ำเชื่อม',
+  ing:[['ผงมัทฉะ',4,'ก.'],['น้ำร้อน 80°C',30,'มล.'],['นมสด',150,'มล.'],['น้ำเชื่อม',20,'มล.'],['น้ำแข็ง',200,'ก.']],
+  steps:['ละลายมัทฉะกับน้ำร้อนให้เนียน','ใส่ทุกอย่างลงโถปั่น','ปั่นความเร็วสูงจนเนียน ประมาณ 40 วินาที']},
+ {cat:'blend',th:'โกโก้ปั่น',en:'Cocoa Frappé',time:'4 นาที',level:'ง่าย',eq:'B',temp:'blend',color:'#5A3426',top:W,spec:'โกโก้ 20 ก. + นม + น้ำแข็ง',
+  ing:[['ผงโกโก้',20,'ก.'],['น้ำร้อน',30,'มล.'],['นมสด',150,'มล.'],['น้ำเชื่อม',15,'มล.'],['น้ำแข็ง',200,'ก.']],
+  steps:['ละลายผงโกโก้ในน้ำร้อน','ใส่ทุกอย่างลงโถปั่น','ปั่นจนเนียนข้น เทใส่แก้ว']},
+ {cat:'blend',th:'สมูทตี้มะม่วง',en:'Mango Smoothie',time:'4 นาที',level:'ง่าย',eq:'B',temp:'blend',color:'#E7A93C',top:'#F3CB6E',spec:'มะม่วงสุก 200 ก. + โยเกิร์ต + น้ำแข็ง',
+  ing:[['มะม่วงสุก หั่นชิ้น',200,'ก.'],['โยเกิร์ตรสธรรมชาติ',80,'ก.'],['นมสด',60,'มล.'],['น้ำผึ้ง',10,'มล.'],['น้ำแข็ง',120,'ก.']],
+  steps:['ใส่มะม่วง โยเกิร์ต นม และน้ำผึ้งลงโถปั่น','ใส่น้ำแข็งเป็นอย่างสุดท้าย','ปั่นความเร็วสูงจนเนียน 40–60 วินาที'],
+  tip:'ใช้มะม่วงแช่แข็งแทนน้ำแข็ง จะได้รสเข้มข้นไม่จืด'},
+ {cat:'blend',th:'สตรอว์เบอร์รีบานาน่า',en:'Strawberry Banana',time:'4 นาที',level:'ง่าย',eq:'B',temp:'blend',color:'#D2596A',top:'#EBA0A6',spec:'สตรอว์เบอร์รี 150 ก. + กล้วย 1 ลูก + นม',
+  ing:[['สตรอว์เบอร์รี',150,'ก.'],['กล้วยหอม',1,'ลูก'],['นมสด',150,'มล.'],['น้ำผึ้ง',10,'มล.'],['น้ำแข็ง',100,'ก.']],
+  steps:['ล้างสตรอว์เบอร์รี เด็ดขั้วออก','ใส่ทุกอย่างลงโถปั่น','ปั่นจนเนียน เทใส่แก้วแล้วแต่งด้วยสตรอว์เบอร์รีผ่าครึ่ง']},
+ {cat:'blend',th:'กาแฟกล้วยปั่น',en:'Coffee Banana',time:'5 นาที',level:'ง่าย',eq:'EB',temp:'blend',color:'#A27552',top:'#E6D2B5',spec:'กล้วยหอม 1 ลูก + ช็อตคู่ + นม',timer:28,
+  ing:[['กล้วยหอมแช่แข็ง',1,'ลูก'],['เอสเปรสโซช็อตคู่',36,'ก.'],['นมสด',150,'มล.'],['น้ำผึ้ง',10,'มล.'],['น้ำแข็ง',80,'ก.']],
+  steps:['สกัดเอสเปรสโซ พักให้เย็น','ใส่กล้วยแช่แข็ง กาแฟ นม น้ำผึ้ง และน้ำแข็งลงโถปั่น','ปั่นจนเนียนข้น ประมาณ 50 วินาที']},
+ {cat:'blend',th:'อะโวคาโดกาแฟปั่น',en:'Avocado Coffee',time:'5 นาที',level:'ปานกลาง',eq:'EB',temp:'blend',color:'#9FA25A',top:'#5A3420',spec:'อะโวคาโดครึ่งลูก + ช็อต + นม + น้ำผึ้ง',timer:28,
+  ing:[['อะโวคาโดสุก',0.5,'ลูก'],['นมสด',150,'มล.'],['น้ำผึ้ง',15,'มล.'],['น้ำแข็ง',120,'ก.'],['เอสเปรสโซช็อตคู่',36,'ก.']],
+  steps:['ปั่นอะโวคาโด นม น้ำผึ้ง และน้ำแข็งจนเนียน','เทใส่แก้ว','สกัดเอสเปรสโซแล้วราดด้านบนให้เป็นชั้น']}
+,
+  {cat:'coffee',th:'อเมริกาโน่เย็น',en:'Iced Americano',time:'4 นาที',level:'ง่าย',eq:'E',temp:'iced',color:'#342014',top:'#86512B',spec:'เอสเปรสโซช็อตคู่ + น้ำเย็น 150 มล. + น้ำแข็ง',
+   ing:[['เอสเปรสโซช็อตคู่',36,'ก.'],['น้ำเย็น',150,'มล.'],['น้ำแข็ง',150,'ก.']],
+   steps:['เติมน้ำแข็งลงแก้วสูง','เทน้ำเย็น 150 มล.','สกัดเอสเปรสโซช็อตคู่ แล้วเทลงแก้ว','คนเบา ๆ ก่อนดื่ม'],photo:'iced-americano'},
+  {cat:'coffee',th:'ลาเต้เย็น',en:'Iced Latte',time:'5 นาที',level:'ง่าย',eq:'E',temp:'iced',color:'#D2AD7C',top:'#6C3820',spec:'นมสด 180 มล. + เอสเปรสโซช็อตคู่ + น้ำแข็ง',
+   ing:[['นมสดเย็น',180,'มล.'],['เอสเปรสโซช็อตคู่',36,'ก.'],['น้ำแข็ง',150,'ก.']],
+   steps:['เติมน้ำแข็งในแก้วใส','เทนมเย็นลงแก้ว','สกัดเอสเปรสโซและเทช้า ๆ ให้เกิดลายสวย','คนก่อนดื่มตามชอบ'],photo:'iced-latte'},
+  {cat:'coffee',th:'มอคค่าเย็น',en:'Iced Mocha',time:'6 นาที',level:'ง่าย',eq:'E',temp:'iced',color:'#6C402C',top:'#D8B38B',spec:'ซอสช็อกโกแลต 20 ก. + ช็อตคู่ + นม + วิปครีม',
+   ing:[['ซอสช็อกโกแลต',20,'ก.'],['เอสเปรสโซช็อตคู่',36,'ก.'],['นมสดเย็น',160,'มล.'],['น้ำแข็ง',150,'ก.'],['วิปครีม',25,'ก.']],
+   steps:['ผสมเอสเปรสโซกับซอสช็อกโกแลตให้เข้ากัน','เติมน้ำแข็งและนมสดเย็นลงแก้ว','เทกาแฟช็อกโกแลตลงไป คนเบา ๆ','แต่งด้วยวิปครีมและซอสช็อกโกแลต'],photo:'iced-mocha'},
+  {cat:'coffee',th:'คอฟฟี่โซดามะนาว',en:'Coffee Soda',time:'5 นาที',level:'ง่าย',eq:'E',temp:'iced',color:'#A87546',top:'#4D2D21',spec:'ช็อตคู่ + โซดา 120 มล. + มะนาว + น้ำแข็ง',
+   ing:[['เอสเปรสโซช็อตคู่',36,'ก.'],['โซดาแช่เย็น',120,'มล.'],['น้ำเชื่อม',15,'มล.'],['น้ำแข็ง',150,'ก.'],['มะนาวฝาน',1,'ชิ้น'],['โรสแมรีสำหรับตกแต่ง',1,'ก้าน']],
+   steps:['ใส่น้ำเชื่อมและน้ำแข็งลงแก้ว','เติมโซดาเย็นให้เกิดฟองซ่า','เทช็อตกาแฟเบา ๆ ให้แยกชั้น','แต่งด้วยมะนาวฝานและคนก่อนดื่ม'],photo:'coffee-soda'},
+  {cat:'coffee',th:'วานิลลาลาเต้เย็น',en:'Vanilla Latte',time:'5 นาที',level:'ง่าย',eq:'E',temp:'iced',color:'#C49562',top:'#F2E5D4',spec:'วานิลลาไซรัป + นมเย็น + ช็อตคู่ + วิปครีม',
+   ing:[['ไซรัปวานิลลา',15,'มล.'],['นมสดเย็น',170,'มล.'],['เอสเปรสโซช็อตคู่',36,'ก.'],['น้ำแข็ง',140,'ก.'],['วิปครีม',25,'ก.']],
+   steps:['เติมไซรัปวานิลลาลงแก้ว','ใส่น้ำแข็งและนมสดเย็น','ราดเอสเปรสโซช้า ๆ','ตกแต่งด้วยวิปครีมและวานิลลาตามชอบ'],photo:'vanilla-latte'},
+  {cat:'coffee',th:'เฮเซลนัทลาเต้เย็น',en:'Hazelnut Latte',time:'5 นาที',level:'ง่าย',eq:'E',temp:'iced',color:'#AD754D',top:'#ECD0AD',spec:'ไซรัปเฮเซลนัท + นม + ช็อตคู่ + เฮเซลนัทบด',
+   ing:[['ไซรัปเฮเซลนัท',15,'มล.'],['นมสดเย็น',170,'มล.'],['เอสเปรสโซช็อตคู่',36,'ก.'],['น้ำแข็ง',150,'ก.'],['เฮเซลนัทสับ (ตกแต่ง)',5,'ก.']],
+   steps:['เทไซรัปเฮเซลนัทลงแก้ว','เติมน้ำแข็งและนมเย็น','เทเอสเปรสโซลงบนสุด','โรยเฮเซลนัทสับ (ตรวจสอบการแพ้ถั่วก่อนเสิร์ฟ)'],photo:'hazelnut-latte'},
+  {cat:'coffee',th:'โคโคนัทลาเต้',en:'Coconut Coffee',time:'5 นาที',level:'ง่าย',eq:'E',temp:'iced',color:'#D6C5A8',top:'#65432C',spec:'นมมะพร้าว + ช็อตคู่ + ไซรัปมะพร้าว',
+   ing:[['นมมะพร้าวสำหรับเครื่องดื่ม',150,'มล.'],['เอสเปรสโซช็อตคู่',36,'ก.'],['ไซรัปมะพร้าว',15,'มล.'],['น้ำแข็ง',150,'ก.']],
+   steps:['ใส่ไซรัปมะพร้าวและน้ำแข็งลงแก้ว','เติมนมมะพร้าวเย็น','เทช็อตเอสเปรสโซลงด้านบน','คนให้เข้ากันก่อนดื่ม'],photo:'coconut-latte'},
+  {cat:'soda',th:'สตรอว์เบอร์รีโซดา',en:'Strawberry Soda',time:'5 นาที',level:'ง่าย',eq:'N',temp:'iced',color:'#D8516F',top:'#F2B2B7',spec:'สตรอว์เบอร์รี + โซดา + มะนาว + น้ำแข็ง',
+   ing:[['สตรอว์เบอร์รีสด',80,'ก.'],['โซดาแช่เย็น',150,'มล.'],['น้ำมะนาว',15,'มล.'],['น้ำเชื่อม',15,'มล.'],['น้ำแข็ง',150,'ก.'],['เบอร์รีรวมสำหรับตกแต่ง',20,'ก.'],['ใบสะระแหน่',2,'ใบ']],
+   steps:['บดสตรอว์เบอร์รีกับน้ำเชื่อม','เติมน้ำมะนาวและน้ำแข็งลงแก้ว','ค่อย ๆ เทโซดาเย็น','แต่งด้วยสตรอว์เบอร์รี เบอร์รีรวม และใบสะระแหน่'],photo:'strawberry-soda'},
+
+].map((r, i) => ({ ...r, id: i + 1, unit: r.unit || 'แก้ว' }));
+
+/* ---------- storage (ปลอดภัยถ้าเบราว์เซอร์บล็อก) ---------- */
+const store = {
+  get(k, d) { try { const v = localStorage.getItem('sl_' + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem('sl_' + k, JSON.stringify(v)); } catch (e) {} }
+};
+let favs = new Set(store.get('favs', []));
+let myEq = store.get('myEq', []);
+
+const ORIGINAL_IMAGE_MAP = {"1": "assets/drinks/espresso.webp", "3": "assets/drinks/cappuccino.webp", "4": "assets/drinks/latte-hot.webp", "7": "assets/drinks/caramel-macchiato.webp", "15": "assets/drinks/thai-milk-tea.webp", "16": "assets/drinks/matcha-latte.webp"};
+const ILLUSTRATED_IMAGE_MAP = {"2": "assets/drinks/art-americano.svg", "5": "assets/drinks/art-flat-white.svg", "6": "assets/drinks/art-mocha.svg", "8": "assets/drinks/art-espresso-tonic.svg", "9": "assets/drinks/art-dirty-coffee.svg", "10": "assets/drinks/art-coconut-americano.svg", "11": "assets/drinks/art-affogato.svg", "12": "assets/drinks/art-cold-brew.svg", "13": "assets/drinks/art-pour-over.svg", "14": "assets/drinks/art-thai-iced-coffee.svg", "17": "assets/drinks/art-dirty-matcha.svg", "18": "assets/drinks/art-hojicha-latte.svg", "19": "assets/drinks/art-london-fog.svg", "20": "assets/drinks/art-chai-latte.svg", "21": "assets/drinks/art-iced-lemon-tea.svg", "22": "assets/drinks/art-peach-oolong.svg", "23": "assets/drinks/art-mocha-frapp.svg", "24": "assets/drinks/art-caramel-frapp.svg", "25": "assets/drinks/art-matcha-frapp.svg", "26": "assets/drinks/art-cocoa-frapp.svg", "27": "assets/drinks/art-mango-smoothie.svg", "28": "assets/drinks/art-strawberry-banana.svg", "29": "assets/drinks/art-coffee-banana.svg", "30": "assets/drinks/art-avocado-coffee.svg"};
+function recipeImage(r) { return r.photo ? `assets/drinks/${r.photo}.webp` : ORIGINAL_IMAGE_MAP[r.id] || ILLUSTRATED_IMAGE_MAP[r.id] || "assets/drinks/matcha-latte.webp"; }
+
+/* ---------- ภาพแก้ว ---------- */
+function cup(r, w) {
+  const h = Math.round(w * 4 / 3);
+  const line = 'stroke="#F2E7D8" stroke-opacity=".45" stroke-width="1.5"';
+  if (r.temp === 'hot') return `<svg width="${w}" height="${h}" viewBox="0 0 60 80" aria-hidden="true">
+    <path d="M22 18 C19 12 25 9 22 3M32 18 C29 11 36 8 32 1M42 18 C39 12 45 9 42 4" fill="none" stroke="#F2E7D8" stroke-opacity=".35" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="30" cy="70" rx="26" ry="5" fill="#E3D5C2"/>
+    <path d="M10 28 L50 28 L46 64 Q30 71 14 64 Z" fill="#EDE2D2"/>
+    <path d="M50 34 C60 34 60 52 48 52" fill="none" stroke="#EDE2D2" stroke-width="5"/>
+    <ellipse cx="30" cy="28" rx="20" ry="5.5" fill="${r.color}"/>
+    <ellipse cx="30" cy="28" rx="11" ry="2.8" fill="${r.top}" opacity=".9"/></svg>`;
+  if (r.temp === 'blend') return `<svg width="${w}" height="${h}" viewBox="0 0 60 80" aria-hidden="true">
+    <path d="M36 2 L31 22" stroke="#C8705A" stroke-width="3" stroke-linecap="round"/>
+    <path d="M14 24 L46 24 L42 74 Q30 78 18 74 Z" fill="${r.color}"/>
+    <path d="M11 25 Q30 6 49 25 Z" fill="${r.top}"/>
+    <path d="M14 24 L46 24 L42 74 Q30 78 18 74 Z" fill="none" ${line}/></svg>`;
+  return `<svg width="${w}" height="${h}" viewBox="0 0 60 80" aria-hidden="true">
+    <path d="M10 8 L50 8 L45 74 Q30 78 15 74 Z" fill="#F2E7D8" opacity=".07"/>
+    <path d="M11 22 L49 22 L45 74 Q30 78 15 74 Z" fill="${r.color}"/>
+    <path d="M11 22 L49 22 L48 32 L12 32 Z" fill="${r.top}"/>
+    <rect x="18" y="38" width="10" height="10" rx="2" fill="#F2E7D8" opacity=".3" transform="rotate(12 23 43)"/>
+    <rect x="32" y="52" width="10" height="10" rx="2" fill="#F2E7D8" opacity=".3" transform="rotate(-10 37 57)"/>
+    <path d="M10 8 L50 8 L45 74 Q30 78 15 74 Z" fill="none" ${line}/></svg>`;
+}
+const ICON = {
+  espresso: '<rect x="4" y="3" width="16" height="6" rx="1"/><path d="M7 9v3h10V9M9 12l1 3h4l1-3"/><rect x="5" y="17" width="14" height="3" rx="1"/>',
+  grinder:  '<path d="M7 3h10l-2 6H9z"/><rect x="6" y="9" width="12" height="11" rx="2"/><path d="M10 14h4"/>',
+  beans:    '<ellipse cx="12" cy="12" rx="6" ry="9" transform="rotate(30 12 12)"/><path d="M8 5c4 4 4 10 8 14"/>',
+  blender:  '<path d="M7 3h10l-1 11H8z"/><path d="M6 14h12l-1 7H7z"/><path d="M12 6v5"/>',
+  drip:     '<path d="M5 5h14l-5 8h-4z"/><path d="M6 19h12M8 16h8v3H8z"/>',
+  kettle:   '<path d="M6 9h11l1 11H5z"/><path d="M17 11c3 0 3 5 0 5"/><path d="M9 9V6h5v3"/>'
+};
+const svgIco = (k, s = 32) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="#D4A15F" stroke-width="1.6" aria-hidden="true">${ICON[k]}</svg>`;
+const heart = '<img class="navsymbol" src="assets/icons/heart.png" alt="" />';
+
+function card(r) {
+  return `<a class="card" href="#/r/${r.id}">
+    <div class="thumb"><img class="drinkphoto" loading="lazy" src="${recipeImage(r)}" alt="${r.th}" /></div>
+    <div class="meta">
+      <span class="no">สูตร ${r.id} · ${CAT[r.cat]}${favs.has(r.id) ? ' · ♥' : ''}</span>
+      <span class="th">${r.th}</span>
+      <span class="en">${r.en}</span>
+      <span class="spec">${r.spec}</span>
+      <span class="foot">${r.time} · ${r.level} · ${EQUIP[r.eq].label}</span>
+    </div></a>`;
+}
+const canMake = r => {
+  if (!myEq.length) return true;
+  if (r.eq === 'N') return true;
+  if (r.eq === 'EB') return myEq.includes('E') && myEq.includes('B');
+  return myEq.includes(r.eq);
+};
+
+/* ---------- pages ---------- */
+function home() {
+  const day = Math.floor(Date.now() / 86400000);
+  const picks = [16, 32, 15, 7, 38, 31];
+  const f = R[picks[day % picks.length] - 1];
+  const pop = [16, 15, 7, 31, 32, 38].map(i => R[i - 1]);
+  const eqs = [['E','เครื่องเอสเปรสโซ','espresso'],['B','เครื่องปั่น','blender'],['D','อุปกรณ์ดริป','drip']];
+  return `
+  <section class="hero"><div class="wrap">
+    <div>
+      <span class="eyebrow">DRINK RECIPES · HERO VISUAL</span>
+      <h1>สูตรเครื่องดื่ม<br><em>ชงง่าย ได้ฟีลคาเฟ่</em></h1>
+      <p>${R.length} สูตรกาแฟ ชา และเมนูปั่น ตวงเป็นกรัมและมิลลิลิตร บอกชัดว่าใช้เครื่องไหน ชงตามได้จริงที่บ้าน</p>
+      <div class="chips"><a class="btn" href="#/recipes">ดูสูตรทั้งหมด</a><a class="btn ghost" href="#/shop">เครื่องชงและเมล็ด</a></div>
+    </div>
+    <a class="feature" href="#/r/${f.id}">
+      <div class="art"><img class="featurephoto" src="${recipeImage(f)}" alt="${f.th}" /></div>
+      <div><span class="eyebrow" style="font-size:12px">สูตรแนะนำวันนี้</span>
+        <h3>${f.th}</h3><div class="en" style="font-size:17px">${f.en}</div>
+        <div style="color:var(--text2);font-size:15px;margin-top:8px;font-weight:300">${f.time} · ${f.level}</div></div>
+    </a>
+  </div></section>
+
+  <section class="block"><div class="wrap">
+    <div class="stats">
+      <a class="stat" href="#/recipes?cat=coffee"><b>${R.filter(r => r.cat === 'coffee').length}</b><span>สูตรกาแฟ</span></a>
+      <a class="stat" href="#/recipes?cat=tea"><b>${R.filter(r => r.cat === 'tea').length}</b><span>สูตรชา</span></a>
+      <a class="stat" href="#/recipes?cat=blend"><b>${R.filter(r => r.cat === 'blend').length}</b><span>ปั่น / สมูทตี้</span></a>
+      <a class="stat" href="#/recipes?cat=soda"><b>${R.filter(r => r.cat === 'soda').length}</b><span>โซดา / สดชื่น</span></a>
+    </div>
+  </div></section>
+
+  <section class="block" style="padding-top:8px"><div class="wrap">
+    <div class="blockhead"><h2>ที่บ้านมีเครื่องอะไรบ้าง?</h2><span style="color:var(--muted);font-size:14px">เลือกแล้วเราจะคัดสูตรที่ทำได้ให้</span></div>
+    <div class="equip">${eqs.map(([k, l, ic]) => `<button type="button" class="eqcard" data-eq="${k}" aria-pressed="${myEq.includes(k)}"><img class="symbol" src="assets/icons/${ic === 'drip' ? 'coffee' : ic}.png" alt="" /><span>${l}<small>${R.filter(r => r.eq === k || (r.eq === 'EB' && (k === 'E' || k === 'B'))).length} สูตรที่ใช้</small></span></button>`).join('')}</div>
+    <p id="eqnote" style="color:var(--text2);margin:14px 0 0;font-weight:300"></p>
+  </div></section>
+
+  <section class="block"><div class="wrap">
+    <div class="blockhead"><h2>ยอดนิยมสัปดาห์นี้</h2><a href="#/recipes">ดูทั้งหมด</a></div>
+    <div class="grid">${pop.map(card).join('')}</div>
+  </div></section>`;
+}
+
+function recipes(q) {
+  const cat = q.get('cat') || 'all';
+  const fav = q.get('fav') === '1';
+  const tabs = [['all','ทั้งหมด'],['coffee','กาแฟ'],['tea','ชา'],['blend','ปั่น / สมูทตี้'],['soda','โซดา']];
+  return `
+  <section class="pagehead"><div class="wrap">
+    <span class="eyebrow">${fav ? 'Favourites' : 'Recipe Book'}</span>
+    <h1>${fav ? 'สูตรโปรดของคุณ' : '${R.length} สูตร ที่ชงได้จริงที่บ้าน'}</h1>
+    <p>${fav ? 'กดรูปหัวใจในหน้าสูตรเพื่อเก็บไว้ที่นี่' : 'กาแฟ ชา และเมนูปั่น ตวงเป็นกรัมและมิลลิลิตร กดเข้าแต่ละสูตรเพื่อดูวิธีทำและอุปกรณ์จากร้าน'}</p>
+    <label class="search"><img class="navsymbol" src="assets/icons/search.png" alt="" /><span class="sr">ค้นหาสูตร</span><input id="q" type="search" placeholder="ค้นหา เช่น ลาเต้, มัทฉะ, mango" autocomplete="off"></label>
+    <div class="filters">
+      <div class="chips" role="group" aria-label="หมวด">${tabs.map(([k, l]) => `<button type="button" class="chip" data-cat="${k}" aria-pressed="${cat === k}"><img class="tabicon" src="assets/icons/${k === 'coffee' ? 'coffee' : k === 'tea' ? 'matcha' : k === 'blend' ? 'blender' : k === 'soda' ? 'iced' : 'grid'}.png" alt="" />${l} · <span data-count="${k}"></span></button>`).join('')}</div>
+      <div class="chips" style="align-items:center">
+        <label class="filterlabel" for="eqsel">ใช้เครื่อง</label>
+        <select id="eqsel" class="eqsel"><option value="">ทุกแบบ</option>${Object.entries(EQUIP).map(([k, v]) => `<option value="${k}">${v.label}</option>`).join('')}</select>
+      </div>
+    </div>
+  </div></section>
+  <section class="block" style="padding-top:12px"><div class="wrap"><div id="list" class="grid" aria-live="polite"></div></div></section>`;
+}
+
+function detail(id) {
+  const r = R.find(x => x.id === id);
+  if (!r) return `<section class="block"><div class="wrap"><div class="empty">ไม่พบสูตรนี้ <a href="#/recipes">กลับไปดูสูตรทั้งหมด</a></div></div></section>`;
+  const prev = R[(id - 2 + R.length) % R.length], next = R[id % R.length];
+  return `
+  <section class="dhero"><div class="wrap">
+    <div class="art"><img class="detailphoto" src="${recipeImage(r)}" alt="ภาพเครื่องดื่ม ${r.th}" /></div>
+    <div>
+      <a class="back" href="#/recipes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>สูตรทั้งหมด</a>
+      <div class="eyebrow" style="margin-top:6px">${CAT[r.cat]} · สูตรที่ ${r.id} จาก 30</div>
+      <h1>${r.th}</h1>
+      <div class="en">${r.en}</div>
+      <div class="tags"><span class="tag">${r.time}</span><span class="tag">${r.level}</span><span class="tag">${r.temp === 'hot' ? 'ร้อน' : r.temp === 'blend' ? 'ปั่น' : 'เย็น'}</span><span class="tag">${EQUIP[r.eq].label}</span>
+        <button type="button" class="iconbtn fav" id="fav" aria-pressed="${favs.has(r.id)}" aria-label="บันทึกเป็นสูตรโปรด">${heart}</button></div>
+    </div>
+  </div></section>
+
+  <div class="wrap"><div class="dbody">
+    <div class="panel">
+      <div class="inghead"><h2 style="margin:0">ส่วนผสม</h2>
+        <div class="stepper" role="group" aria-label="จำนวน${r.unit}">
+          <button type="button" id="dec" aria-label="ลดจำนวน">−</button><span id="cups" aria-live="polite">1 ${r.unit}</span><button type="button" class="plus" id="inc" aria-label="เพิ่มจำนวน">+</button>
+        </div></div>
+      <ul class="ing" id="ing"></ul>
+      <h2>วิธีทำ</h2>
+      <ol class="steps">${r.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+      ${r.timer ? `<div class="timer" id="timer"><div class="clock" id="clock" aria-live="polite">0</div><button type="button" class="btn" id="tbtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M10 2h4"/></svg>จับเวลา ${fmtT(r.timer)}</button></div>` : ''}
+      ${r.tip ? `<p class="tip"><b>เคล็ดลับบาริสต้า</b> ${r.tip}</p>` : ''}
+    </div>
+    <aside class="panel"><div class="sticky">
+      <h2>ใช้ในสูตรนี้ · มีขายที่ร้าน</h2>
+      ${EQUIP[r.eq].prods.map(k => { const p = PRODUCTS[k]; return `<a class="prod" href="${p.url}"><span class="ico"><img class="symbol" src="assets/icons/${k === 'grinder' ? 'espresso' : k === 'drip' ? 'coffee' : k}.png" alt="" /></span><span style="flex-grow:1"><small>${p.type}</small><b>${p.name.startsWith("[") ? p.type : p.name}</b><span class="price">${p.url === "#" ? "โปรดตรวจสอบรุ่นสินค้าก่อนเลือกซื้อ" : p.price}</span></span></a>`; }).join('')}
+      <div class="chips" style="margin-top:20px;justify-content:space-between">
+        <a class="btn ghost" href="#/r/${prev.id}">‹ ${prev.th}</a><a class="btn ghost" href="#/r/${next.id}">${next.th} ›</a>
+      </div>
+    </div></aside>
+  </div></div>`;
+}
+
+function shop() {
+  return `
+  <section class="pagehead"><div class="wrap">
+    <span class="eyebrow">Shop</span><h1>เครื่องชงและเมล็ดกาแฟ</h1>
+    <p>อุปกรณ์ทุกชิ้นที่ใช้ในสูตร กดเพื่อดูรายละเอียดสินค้า</p>
+  </div></section>
+  <section class="block" style="padding-top:12px"><div class="wrap"><div class="grid">
+    ${Object.entries(PRODUCTS).map(([k, p]) => `<a class="prod" href="${p.url}" style="margin:0"><span class="ico"><img class="symbol" src="assets/icons/${k === 'grinder' ? 'espresso' : k === 'drip' ? 'coffee' : k}.png" alt="" /></span><span style="flex-grow:1"><small>${p.type} · ใช้ได้ ${R.filter(r => EQUIP[r.eq].prods.includes(k)).length} สูตร</small><b>${p.name.startsWith("[") ? p.type : p.name}</b><span class="price">${p.url === "#" ? "โปรดตรวจสอบรุ่นสินค้าก่อนเลือกซื้อ" : p.price}</span></span></a>`).join('')}
+  </div></div></section>`;
+}
+
+/* ---------- helpers ---------- */
+function fmtT(s) { return s >= 60 ? `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')} นาที` : `${s} วินาที`; }
+function fmtA(a) {
+  if (a === null) return 'ตามชอบ';
+  const n = Math.round(a * 10) / 10;
+  if (n % 1 === 0.5 && n < 5) return (n >= 1 ? Math.floor(n) + ' ' : '') + '½';
+  return n.toLocaleString('th-TH');
+}
+
+/* ---------- router ---------- */
+const app = document.getElementById('app');
+let tick = null;
+function route() {
+  clearInterval(tick);
+  const [path, qs] = (location.hash.slice(1) || '/').split('?');
+  const q = new URLSearchParams(qs || '');
+  let nav = 'home';
+  if (path.startsWith('/r/')) { nav = 'recipes'; app.innerHTML = detail(+path.slice(3)); bindDetail(+path.slice(3)); }
+  else if (path === '/recipes') { nav = q.get('fav') === '1' ? 'fav' : 'recipes'; app.innerHTML = recipes(q); bindRecipes(q); }
+  else if (path === '/shop') { nav = 'shop'; app.innerHTML = shop(); }
+  else { app.innerHTML = home(); bindHome(); }
+  document.querySelectorAll('[data-nav]').forEach(a => a.classList.toggle('on', a.dataset.nav === nav));
+  window.scrollTo(0, 0);
+}
+
+function bindHome() {
+  const note = () => {
+    const n = R.filter(canMake).length;
+    document.getElementById('eqnote').textContent = myEq.length ? `ด้วยเครื่องที่เลือก ทำได้ ${n} จาก ${R.length} สูตร` : 'ยังไม่ได้เลือก แสดงทุกสูตร';
+  };
+  document.querySelectorAll('[data-eq]').forEach(b => b.onclick = () => {
+    const k = b.dataset.eq;
+    myEq = myEq.includes(k) ? myEq.filter(x => x !== k) : [...myEq, k];
+    store.set('myEq', myEq);
+    b.setAttribute('aria-pressed', myEq.includes(k));
+    note();
+  });
+  note();
+}
+
+function bindRecipes(q) {
+  let cat = q.get('cat') || 'all';
+  const fav = q.get('fav') === '1';
+  const input = document.getElementById('q'), sel = document.getElementById('eqsel'), list = document.getElementById('list');
+  if (q.get('focus')) input.focus();
+  const base = () => R.filter(r => (!fav || favs.has(r.id)) && canMake(r));
+  function update() {
+    const t = input.value.trim().toLowerCase(), e = sel.value;
+    const pool = base().filter(r => (!t || (r.th + r.en + r.spec).toLowerCase().includes(t)) && (!e || r.eq === e));
+    document.querySelectorAll('[data-count]').forEach(s => {
+      const k = s.dataset.count; s.textContent = k === 'all' ? pool.length : pool.filter(r => r.cat === k).length;
+    });
+    const shown = cat === 'all' ? pool : pool.filter(r => r.cat === cat);
+    list.innerHTML = shown.length ? shown.map(card).join('')
+      : `<div class="empty" style="grid-column:1/-1">${fav && !favs.size ? 'ยังไม่มีสูตรโปรด ลองกดหัวใจในหน้าสูตรดูนะ' : 'ไม่พบสูตรที่ตรงกับการค้นหา'}</div>`;
+  }
+  document.querySelectorAll('[data-cat]').forEach(b => b.onclick = () => {
+    cat = b.dataset.cat;
+    document.querySelectorAll('[data-cat]').forEach(x => x.setAttribute('aria-pressed', x === b));
+    update();
+  });
+  input.oninput = update; sel.onchange = update;
+  if (myEq.length) {
+    const p = document.createElement('p');
+    p.style.cssText = 'color:var(--muted);font-size:14px;margin:12px 0 0';
+    p.innerHTML = 'แสดงเฉพาะสูตรที่ทำได้กับเครื่องที่คุณเลือก · <a href="#/" >เปลี่ยน</a>';
+    document.querySelector('.filters').appendChild(p);
+  }
+  update();
+}
+
+function bindDetail(id) {
+  const r = R.find(x => x.id === id); if (!r) return;
+  let n = 1;
+  const draw = () => {
+    document.getElementById('cups').textContent = `${n} ${r.unit}`;
+    document.getElementById('ing').innerHTML = r.ing.map(([name, a, u]) => `<li><span>${name}</span><b>${fmtA(a === null ? null : a * n)} ${a === null ? '' : u}</b></li>`).join('');
+  };
+  document.getElementById('dec').onclick = () => { n = Math.max(1, n - 1); draw(); };
+  document.getElementById('inc').onclick = () => { n = Math.min(10, n + 1); draw(); };
+  draw();
+  const fb = document.getElementById('fav');
+  fb.onclick = () => {
+    favs.has(id) ? favs.delete(id) : favs.add(id);
+    store.set('favs', [...favs]);
+    fb.setAttribute('aria-pressed', favs.has(id));
+  };
+  const tb = document.getElementById('tbtn');
+  if (tb) tb.onclick = () => {
+    clearInterval(tick);
+    let left = r.timer;
+    const box = document.getElementById('timer'), clock = document.getElementById('clock');
+    box.classList.add('run'); clock.textContent = left;
+    tb.lastChild.textContent = 'เริ่มใหม่';
+    tick = setInterval(() => {
+      left--;
+      clock.textContent = left > 0 ? (left >= 60 ? `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}` : left) : 'เสร็จแล้ว!';
+      if (left <= 0) { clearInterval(tick); try { navigator.vibrate && navigator.vibrate(200); } catch (e) {} }
+    }, 1000);
+  };
+}
+
+window.addEventListener('hashchange', route);
+route();
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+}
+</script>
+</body>
+</html>
