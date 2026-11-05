@@ -1,12 +1,12 @@
 {
   "name": "SMALL LOVERS by HomePro – สูตรเครื่องดื่ม",
   "short_name": "SMALL LOVERS",
-  "description": "สูตรกาแฟ ชา สมูทตี้ และเครื่องดื่มทำเอง",
+  "description": "รวมสูตรกาแฟ ชา โซดา และเครื่องดื่มปั่น พร้อมส่วนผสมและวิธีทำ",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#0D1D15",
-  "theme_color": "#10251B",
+  "theme_color": "#090909",
   "icons": [
     {
       "src": "assets/pwa/icon-192.png",

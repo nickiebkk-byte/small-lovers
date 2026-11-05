@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#10251B">
+<meta name="theme-color" content="#080808">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="apple-touch-icon" href="assets/pwa/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/pwa/favicon-32.png">
@@ -274,7 +274,7 @@ body {letter-spacing:0;overflow-x:hidden;background:#0D1D15}
 <footer class="foot">
   <div class="wrap">
     <span class="footer-brand">SMALL LOVERS by HomePro</span>
-    <span>สูตรเครื่องดื่มทำเอง · กาแฟ ชา และเมนูปั่น</span>
+    <span>สูตรเครื่องดื่มทำเอง · กาแฟ ชา โซดา และเมนูปั่น</span>
   </div>
 </footer>
 
@@ -290,12 +290,12 @@ body {letter-spacing:0;overflow-x:hidden;background:#0D1D15}
    แก้ข้อมูลสินค้าตรงนี้ (ชื่อรุ่น ราคา ลิงก์ไปหน้าสินค้า)
    ====================================================== */
 const PRODUCTS = {
-  espresso: { type: 'เครื่องชงเอสเปรสโซ',  name: '[ชื่อรุ่นเครื่องชง]',  price: '[ราคา]',          url: '#' },
-  grinder:  { type: 'เครื่องบดเมล็ดกาแฟ',   name: '[ชื่อรุ่นเครื่องบด]',  price: '[ราคา]',          url: '#' },
-  beans:    { type: 'เมล็ดกาแฟคั่ว',         name: '[ชื่อเมล็ดกาแฟ]',      price: '[ราคา / 250 ก.]', url: '#' },
-  blender:  { type: 'เครื่องปั่นน้ำผลไม้',    name: '[ชื่อรุ่นเครื่องปั่น]', price: '[ราคา]',          url: '#' },
-  drip:     { type: 'ชุดดริปกาแฟ',           name: '[ชื่อชุดดริป]',        price: '[ราคา]',          url: '#' },
-  kettle:   { type: 'กาต้มน้ำไฟฟ้า',          name: '[ชื่อรุ่นกาต้มน้ำ]',    price: '[ราคา]',          url: '#' }
+  espresso: { type: 'เครื่องชงเอสเปรสโซ',  name: 'เลือกรุ่นเครื่องชงเอสเปรสโซ',  price: '',          url: '#' },
+  grinder:  { type: 'เครื่องบดเมล็ดกาแฟ',   name: 'เลือกเครื่องบดเมล็ดกาแฟ',  price: '',          url: '#' },
+  beans:    { type: 'เมล็ดกาแฟคั่ว',         name: 'เลือกเมล็ดกาแฟที่ชอบ',      price: '', url: '#' },
+  blender:  { type: 'เครื่องปั่นน้ำผลไม้',    name: 'เลือกเครื่องปั่น', price: '',          url: '#' },
+  drip:     { type: 'ชุดดริปกาแฟ',           name: 'เลือกชุดดริปกาแฟ',        price: '',          url: '#' },
+  kettle:   { type: 'กาต้มน้ำไฟฟ้า',          name: 'เลือกกาต้มน้ำไฟฟ้า',    price: '',          url: '#' }
 };
 
 const EQUIP = {
@@ -311,12 +311,12 @@ const W = '#F2E7D8';
 /* ข้อมูลสูตร: ing = [ชื่อ, ปริมาณต่อ 1 แก้ว, หน่วย] (ปริมาณ null = ตามชอบ) */
 const R = [
  {cat:'coffee',th:'เอสเปรสโซ',en:'Espresso',time:'3 นาที',level:'ง่าย',eq:'E',temp:'hot',color:'#3A1F12',top:'#A86A3C',spec:'18 ก. เข้า 36 ก. ออก · 25–30 วินาที',timer:28,
-  ing:[['เมล็ดกาแฟบดละเอียด',18,'ก.'],['น้ำกาแฟที่ได้',36,'ก.']],
+  ing:[['เมล็ดกาแฟบดละเอียด',18,'ก.']],
   steps:['อุ่นเครื่องและถ้วยให้ร้อน','บดกาแฟละเอียด เกลี่ยให้เรียบแล้วกดแทมป์ให้แน่นสม่ำเสมอ','สกัด 25–30 วินาที ให้ได้น้ำกาแฟประมาณ 36 ก.','เสิร์ฟทันทีขณะครีมายังหนา'],
-  tip:'ถ้ารสเปรี้ยวแหลม ให้บดละเอียดขึ้น ถ้าขมฝาด ให้บดหยาบลง'},
+  tip:'หากรสเปรี้ยวจัด ลองบดละเอียดขึ้น หากขมฝาดเกินไป ลองบดหยาบขึ้น'},
  {cat:'coffee',th:'อเมริกาโน่',en:'Americano',time:'3 นาที',level:'ง่าย',eq:'E',temp:'hot',color:'#2B170D',top:'#7A4626',spec:'ช็อตคู่ + น้ำร้อน 150 มล.',timer:28,
   ing:[['เอสเปรสโซช็อตคู่',36,'ก.'],['น้ำร้อน',150,'มล.']],
-  steps:['เทน้ำร้อนลงแก้วก่อน','สกัดเอสเปรสโซลงบนน้ำร้อนโดยตรง เพื่อเก็บครีมาไว้ด้านบน','ถ้าต้องการแบบเย็น ใช้น้ำเย็นแทนน้ำร้อนแล้วเติมน้ำแข็ง']},
+  steps:['เทน้ำร้อนลงแก้วก่อน','สกัดเอสเปรสโซลงบนน้ำร้อนโดยตรง เพื่อเก็บครีมาไว้ด้านบน','สูตรนี้เป็นแบบร้อน หากต้องการแบบเย็นให้เลือกสูตรอเมริกาโน่เย็น']},
  {cat:'coffee',th:'คาปูชิโน่',en:'Cappuccino',time:'5 นาที',level:'ปานกลาง',eq:'E',temp:'hot',color:'#8A5A3B',top:W,spec:'ช็อตคู่ + นมฟองหนา 120 มล.',timer:28,
   ing:[['เอสเปรสโซช็อตคู่',36,'ก.'],['นมสดเย็น',120,'มล.'],['ผงโกโก้ (โรยหน้า)',null,'']],
   steps:['สกัดเอสเปรสโซลงถ้วยขนาด 6 ออนซ์','สตีมนมให้ได้ฟองหนา อุณหภูมิ 60–65°C','เทนมลงกลางถ้วย ให้ฟองปกคลุมหนาราว 1.5 ซม.','โรยผงโกโก้บาง ๆ ตามชอบ']},
@@ -326,7 +326,7 @@ const R = [
   tip:'เคาะเหยือกและหมุนวนนมก่อนเท ฟองจะเนียนเงาเหมาะกับลาเต้อาร์ต'},
  {cat:'coffee',th:'แฟลตไวท์',en:'Flat White',time:'5 นาที',level:'ยาก',eq:'E',temp:'hot',color:'#9C6B47',top:'#D9C3A5',spec:'ริสเตรตโตคู่ + นมฟองบาง 110 มล.',timer:20,
   ing:[['ริสเตรตโตคู่ (18 ก. ได้ 25 ก.)',25,'ก.'],['นมสดเย็น',110,'มล.']],
-  steps:['สกัดริสเตรตโต ใช้กาแฟ 18 ก. ได้น้ำกาแฟราว 25 ก. ใน 18–22 วินาที','สตีมนมให้ฟองบางมาก แทบไม่มีฟองลอย','เทนมช้า ๆ ให้ผสมกับกาแฟจนผิวหน้าเรียบเป็นเงา']},
+  steps:['สกัดริสเตรตโต ใช้กาแฟ 18 ก. ได้น้ำกาแฟราว 25 ก. ใน 18–22 วินาที','สตีมนมให้ฟองบางมาก แทบไม่มีฟองลอย','เทนมช้า ๆ ให้ผสมกับกาแฟจนผิวหน้าเรียบเนียน']},
  {cat:'coffee',th:'มอคค่า',en:'Mocha',time:'6 นาที',level:'ปานกลาง',eq:'E',temp:'hot',color:'#5C3524',top:W,spec:'ช็อตคู่ + ช็อกโกแลต 20 ก. + นม 180 มล.',timer:28,
   ing:[['ซอสช็อกโกแลต',20,'ก.'],['เอสเปรสโซช็อตคู่',36,'ก.'],['นมสด',180,'มล.'],['วิปครีม',null,'']],
   steps:['ใส่ซอสช็อกโกแลตในแก้ว','สกัดเอสเปรสโซลงบนซอส คนให้ละลายเข้ากัน','สตีมนมแล้วเทลงไป','แต่งด้วยวิปครีมและซอสช็อกโกแลตตามชอบ']},
@@ -337,19 +337,19 @@ const R = [
   ing:[['เอสเปรสโซช็อตคู่',36,'ก.'],['โทนิคแช่เย็น',120,'มล.'],['น้ำแข็ง',150,'ก.'],['ส้มฝาน',1,'ชิ้น']],
   steps:['เติมน้ำแข็งให้เต็มแก้ว','เทโทนิคที่แช่เย็นจัดช้า ๆ ตามผนังแก้ว ไม่ให้ฟองหาย','สกัดช็อตคู่ กาแฟบด 18 ก. ได้น้ำกาแฟ 36 ก. ใน 25–30 วินาที','ค่อย ๆ เทช็อตผ่านหลังช้อนให้ลอยเป็นชั้น แต่งด้วยส้มฝาน'],
   tip:'เมล็ดคั่วอ่อนถึงกลางที่มีโน้ตส้มหรือเบอร์รี เข้ากับความขมของโทนิคได้ดีกว่าคั่วเข้ม'},
- {cat:'coffee',th:'เดอร์ตี้',en:'Dirty Coffee',time:'3 นาที',level:'ปานกลาง',eq:'E',temp:'iced',color:'#E8DCC8',top:'#4A2414',spec:'นมเย็นจัด 120 มล. + ริสเตรตโตร้อนราดบน',timer:20,
+ {cat:'coffee',th:'เดอร์ตี้',en:'Dirty Coffee',time:'13 นาที (รวมแช่แก้ว)',level:'ปานกลาง',eq:'E',temp:'iced',color:'#E8DCC8',top:'#4A2414',spec:'นมเย็นจัด 120 มล. + ริสเตรตโตร้อนราดบน',timer:20,
   ing:[['นมสดเย็นจัด',120,'มล.'],['ริสเตรตโตคู่',25,'ก.']],
-  steps:['แช่แก้วในช่องฟรีซ 10 นาที','เทนมเย็นจัดลงแก้ว ไม่ใส่น้ำแข็ง','สกัดริสเตรตโตแล้วราดลงตรงกลางทันที','ดื่มเลยโดยไม่ต้องคน เพื่อรสที่ไล่จากเข้มไปนุ่ม']},
+  steps:['แช่แก้วในช่องฟรีซ 10 นาที','เทนมเย็นจัดลงแก้ว ไม่ใส่น้ำแข็ง','สกัดริสเตรตโตแล้วราดลงตรงกลางทันที','ดื่มทันทีโดยไม่ต้องคน เพื่อสัมผัสรสชาติกาแฟเข้มสลับกับนมเย็น']},
  {cat:'coffee',th:'อเมริกาโน่มะพร้าว',en:'Coconut Americano',time:'4 นาที',level:'ง่าย',eq:'E',temp:'iced',color:'#4A2A18',top:'#8A5A3B',spec:'ช็อตคู่ + น้ำมะพร้าว 150 มล.',timer:28,
   ing:[['น้ำมะพร้าวแช่เย็น',150,'มล.'],['น้ำแข็ง',150,'ก.'],['เอสเปรสโซช็อตคู่',36,'ก.']],
   steps:['เติมน้ำแข็งลงแก้ว','เทน้ำมะพร้าวเย็น','ราดเอสเปรสโซด้านบน คนก่อนดื่ม']},
- {cat:'coffee',th:'อัฟโฟกาโต้',en:'Affogato',time:'3 นาที',level:'ง่าย',eq:'E',temp:'hot',color:'#EDE3D1',top:'#6B3A1F',spec:'ไอศกรีมวานิลลา 1 สกู๊ป + ช็อตร้อน',timer:28,
+ {cat:'coffee',th:'อัฟโฟกาโต้',en:'Affogato',time:'3 นาที',level:'ง่าย',eq:'E',temp:'mixed',color:'#EDE3D1',top:'#6B3A1F',spec:'ไอศกรีมวานิลลา 1 สกู๊ป + ช็อตร้อน',timer:28,
   ing:[['ไอศกรีมวานิลลา',1,'สกู๊ป'],['เอสเปรสโซช็อตคู่',36,'ก.']],
-  steps:['ตักไอศกรีมใส่ถ้วยที่แช่เย็นไว้','สกัดเอสเปรสโซร้อน ๆ','เทช็อตราดไอศกรีมตอนเสิร์ฟ แล้วทานทันที']},
- {cat:'coffee',th:'โคลด์บรูว์',en:'Cold Brew',time:'12 ชม.',level:'ง่าย',eq:'D',temp:'iced',color:'#3A2012',top:'#5A3420',spec:'บดหยาบ 100 ก. ต่อน้ำ 1 ลิตร · แช่ 12–16 ชม.',unit:'ขวด',
-  ing:[['กาแฟบดหยาบ',100,'ก.'],['น้ำดื่มอุณหภูมิห้อง',1000,'มล.']],
-  steps:['ใส่กาแฟบดหยาบลงขวดโหล เทน้ำแล้วคนให้กาแฟเปียกทั่ว','ปิดฝา แช่ตู้เย็น 12–16 ชั่วโมง','กรองด้วยกระดาษกรองหรือผ้าขาวบาง','เสิร์ฟกับน้ำแข็ง ผสมน้ำหรือนมอัตรา 1:1 ตามชอบ'],
-  tip:'เก็บในตู้เย็นได้ราว 5–7 วัน'},
+  steps:['ตักไอศกรีมใส่ถ้วยที่แช่เย็นไว้','สกัดเอสเปรสโซร้อน ๆ','เทช็อตราดไอศกรีมตอนเสิร์ฟ แล้วรับประทานทันที']},
+ {cat:'coffee',th:'โคลด์บรูว์',en:'Cold Brew',time:'12–16 ชั่วโมง',level:'ง่าย',eq:'D',temp:'iced',color:'#3A2012',top:'#5A3420',spec:'บดหยาบ 100 ก. ต่อน้ำ 1 ลิตร · แช่ 12–16 ชม.',unit:'ขวด',
+  ing:[['กาแฟบดหยาบ',20,'ก.'],['น้ำดื่มสะอาด',200,'มล.']],
+  steps:['ใส่กาแฟบดหยาบลงขวดโหล เทน้ำแล้วคนให้กาแฟเปียกทั่ว','ปิดฝา แล้วแช่ในตู้เย็น 12–16 ชั่วโมง','กรองด้วยกระดาษกรองหรือผ้าขาวบาง','เสิร์ฟกับน้ำแข็ง เติมน้ำหรือนมตามความเข้มที่ต้องการ'],
+  tip:'เก็บในภาชนะสะอาด ปิดสนิท แช่เย็น และควรดื่มภายใน 2–3 วัน'},
  {cat:'coffee',th:'ดริป V60',en:'Pour Over',time:'5 นาที',level:'ปานกลาง',eq:'D',temp:'hot',color:'#5A2E17',top:'#7A4626',spec:'กาแฟ 15 ก. : น้ำ 250 มล. · 92–94°C',timer:165,
   ing:[['กาแฟบดกลางค่อนละเอียด',15,'ก.'],['น้ำร้อน 92–94°C',250,'มล.']],
   steps:['พับกระดาษกรอง ล้างด้วยน้ำร้อนแล้วเทน้ำทิ้ง','ใส่กาแฟ เทน้ำ 30 มล. ให้กาแฟบลูม 30 วินาที','เทน้ำวนเป็นวงก้นหอยจากกลางออกนอก จนครบ 250 มล.','เวลารวมประมาณ 2:30–3:00 นาที']},
@@ -417,8 +417,8 @@ const R = [
    ing:[['ซอสช็อกโกแลต',20,'ก.'],['เอสเปรสโซช็อตคู่',36,'ก.'],['นมสดเย็น',160,'มล.'],['น้ำแข็ง',150,'ก.'],['วิปครีม',25,'ก.']],
    steps:['ผสมเอสเปรสโซกับซอสช็อกโกแลตให้เข้ากัน','เติมน้ำแข็งและนมสดเย็นลงแก้ว','เทกาแฟช็อกโกแลตลงไป คนเบา ๆ','แต่งด้วยวิปครีมและซอสช็อกโกแลต'],photo:'iced-mocha'},
   {cat:'coffee',th:'คอฟฟี่โซดามะนาว',en:'Coffee Soda',time:'5 นาที',level:'ง่าย',eq:'E',temp:'iced',color:'#A87546',top:'#4D2D21',spec:'ช็อตคู่ + โซดา 120 มล. + มะนาว + น้ำแข็ง',
-   ing:[['เอสเปรสโซช็อตคู่',36,'ก.'],['โซดาแช่เย็น',120,'มล.'],['น้ำเชื่อม',15,'มล.'],['น้ำแข็ง',150,'ก.'],['มะนาวฝาน',1,'ชิ้น'],['โรสแมรีสำหรับตกแต่ง',1,'ก้าน']],
-   steps:['ใส่น้ำเชื่อมและน้ำแข็งลงแก้ว','เติมโซดาเย็นให้เกิดฟองซ่า','เทช็อตกาแฟเบา ๆ ให้แยกชั้น','แต่งด้วยมะนาวฝานและคนก่อนดื่ม'],photo:'coffee-soda'},
+   ing:[['เอสเปรสโซช็อตคู่',36,'ก.'],['โซดาแช่เย็น',120,'มล.'],['น้ำมะนาว',15,'มล.'],['น้ำเชื่อม',15,'มล.'],['น้ำแข็ง',150,'ก.'],['มะนาวฝาน',1,'ชิ้น'],['โรสแมรีสำหรับตกแต่ง',1,'ก้าน']],
+   steps:['ผสมน้ำมะนาวกับน้ำเชื่อมในแก้ว แล้วเติมน้ำแข็ง','เติมโซดาเย็นให้เกิดฟองซ่า','เทช็อตกาแฟเบา ๆ ให้แยกชั้น','แต่งด้วยมะนาวฝานและคนก่อนดื่ม'],photo:'coffee-soda'},
   {cat:'coffee',th:'วานิลลาลาเต้เย็น',en:'Vanilla Latte',time:'5 นาที',level:'ง่าย',eq:'E',temp:'iced',color:'#C49562',top:'#F2E5D4',spec:'วานิลลาไซรัป + นมเย็น + ช็อตคู่ + วิปครีม',
    ing:[['ไซรัปวานิลลา',15,'มล.'],['นมสดเย็น',170,'มล.'],['เอสเปรสโซช็อตคู่',36,'ก.'],['น้ำแข็ง',140,'ก.'],['วิปครีม',25,'ก.']],
    steps:['เติมไซรัปวานิลลาลงแก้ว','ใส่น้ำแข็งและนมสดเย็น','ราดเอสเปรสโซช้า ๆ','ตกแต่งด้วยวิปครีมและวานิลลาตามชอบ'],photo:'vanilla-latte'},
@@ -511,7 +511,7 @@ function home() {
     <div>
       <span class="eyebrow">DRINK RECIPES · HERO VISUAL</span>
       <h1>สูตรเครื่องดื่ม<br><em>ชงง่าย ได้ฟีลคาเฟ่</em></h1>
-      <p>${R.length} สูตรกาแฟ ชา และเมนูปั่น ตวงเป็นกรัมและมิลลิลิตร บอกชัดว่าใช้เครื่องไหน ชงตามได้จริงที่บ้าน</p>
+      <p>${R.length} สูตรกาแฟ ชา โซดา และเมนูปั่น พร้อมสัดส่วนส่วนผสมและวิธีทำ บอกชัดว่าใช้เครื่องไหน ชงตามได้จริงที่บ้าน</p>
       <div class="chips"><a class="btn" href="#/recipes">ดูสูตรทั้งหมด</a><a class="btn ghost" href="#/shop">เครื่องชงและเมล็ด</a></div>
     </div>
     <a class="feature" href="#/r/${f.id}">
@@ -551,7 +551,7 @@ function recipes(q) {
   <section class="pagehead"><div class="wrap">
     <span class="eyebrow">${fav ? 'Favourites' : 'Recipe Book'}</span>
     <h1>${fav ? 'สูตรโปรดของคุณ' : '${R.length} สูตร ที่ชงได้จริงที่บ้าน'}</h1>
-    <p>${fav ? 'กดรูปหัวใจในหน้าสูตรเพื่อเก็บไว้ที่นี่' : 'กาแฟ ชา และเมนูปั่น ตวงเป็นกรัมและมิลลิลิตร กดเข้าแต่ละสูตรเพื่อดูวิธีทำและอุปกรณ์จากร้าน'}</p>
+    <p>${fav ? 'กดรูปหัวใจในหน้าสูตรเพื่อเก็บไว้ที่นี่' : 'กาแฟ ชา โซดา และเมนูปั่น พร้อมสัดส่วนและขั้นตอนที่ทำตามได้ กดเข้าแต่ละสูตรเพื่อดูวิธีทำและอุปกรณ์จากร้าน'}</p>
     <label class="search"><img class="navsymbol" src="assets/icons/search.png" alt="" /><span class="sr">ค้นหาสูตร</span><input id="q" type="search" placeholder="ค้นหา เช่น ลาเต้, มัทฉะ, mango" autocomplete="off"></label>
     <div class="filters">
       <div class="chips" role="group" aria-label="หมวด">${tabs.map(([k, l]) => `<button type="button" class="chip" data-cat="${k}" aria-pressed="${cat === k}"><img class="tabicon" src="assets/icons/${k === 'coffee' ? 'coffee' : k === 'tea' ? 'matcha' : k === 'blend' ? 'blender' : k === 'soda' ? 'iced' : 'grid'}.png" alt="" />${l} · <span data-count="${k}"></span></button>`).join('')}</div>
@@ -573,10 +573,10 @@ function detail(id) {
     <div class="art"><img class="detailphoto" src="${recipeImage(r)}" alt="ภาพเครื่องดื่ม ${r.th}" /></div>
     <div>
       <a class="back" href="#/recipes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>สูตรทั้งหมด</a>
-      <div class="eyebrow" style="margin-top:6px">${CAT[r.cat]} · สูตรที่ ${r.id} จาก 30</div>
+      <div class="eyebrow" style="margin-top:6px">${CAT[r.cat]} · สูตรที่ ${r.id} จาก ${R.length}</div>
       <h1>${r.th}</h1>
       <div class="en">${r.en}</div>
-      <div class="tags"><span class="tag">${r.time}</span><span class="tag">${r.level}</span><span class="tag">${r.temp === 'hot' ? 'ร้อน' : r.temp === 'blend' ? 'ปั่น' : 'เย็น'}</span><span class="tag">${EQUIP[r.eq].label}</span>
+      <div class="tags"><span class="tag">${r.time}</span><span class="tag">${r.level}</span><span class="tag">${r.temp === 'hot' ? 'ร้อน' : r.temp === 'blend' ? 'ปั่น' : r.temp === 'mixed' ? 'ร้อนและเย็น' : 'เย็น'}</span><span class="tag">${EQUIP[r.eq].label}</span>
         <button type="button" class="iconbtn fav" id="fav" aria-pressed="${favs.has(r.id)}" aria-label="บันทึกเป็นสูตรโปรด">${heart}</button></div>
     </div>
   </div></section>
@@ -594,8 +594,8 @@ function detail(id) {
       ${r.tip ? `<p class="tip"><b>เคล็ดลับบาริสต้า</b> ${r.tip}</p>` : ''}
     </div>
     <aside class="panel"><div class="sticky">
-      <h2>ใช้ในสูตรนี้ · มีขายที่ร้าน</h2>
-      ${EQUIP[r.eq].prods.map(k => { const p = PRODUCTS[k]; return `<a class="prod" href="${p.url}"><span class="ico"><img class="symbol" src="assets/icons/${k === 'grinder' ? 'espresso' : k === 'drip' ? 'coffee' : k}.png" alt="" /></span><span style="flex-grow:1"><small>${p.type}</small><b>${p.name.startsWith("[") ? p.type : p.name}</b><span class="price">${p.url === "#" ? "โปรดตรวจสอบรุ่นสินค้าก่อนเลือกซื้อ" : p.price}</span></span></a>`; }).join('')}
+      <h2>อุปกรณ์สำหรับสูตรนี้</h2>
+      ${EQUIP[r.eq].prods.map(k => { const p = PRODUCTS[k]; return `<div class="prod"><span class="ico"><img class="symbol" src="assets/icons/${k === 'grinder' ? 'espresso' : k === 'drip' ? 'coffee' : k}.png" alt="" /></span><span style="flex-grow:1"><small>${p.type}</small><b>${p.name.startsWith("[") ? p.type : p.name}</b><span class="price">${p.url === "#" ? "โปรดตรวจสอบรุ่นสินค้าก่อนเลือกซื้อ" : p.price}</span></span></div>`; }).join('')}
       <div class="chips" style="margin-top:20px;justify-content:space-between">
         <a class="btn ghost" href="#/r/${prev.id}">‹ ${prev.th}</a><a class="btn ghost" href="#/r/${next.id}">${next.th} ›</a>
       </div>
@@ -607,15 +607,15 @@ function shop() {
   return `
   <section class="pagehead"><div class="wrap">
     <span class="eyebrow">Shop</span><h1>เครื่องชงและเมล็ดกาแฟ</h1>
-    <p>อุปกรณ์ทุกชิ้นที่ใช้ในสูตร กดเพื่อดูรายละเอียดสินค้า</p>
+    <p>รายการอุปกรณ์ที่ใช้ในการเตรียมเครื่องดื่ม โปรดตรวจสอบรุ่นและสินค้าจริงที่ร้าน</p>
   </div></section>
   <section class="block" style="padding-top:12px"><div class="wrap"><div class="grid">
-    ${Object.entries(PRODUCTS).map(([k, p]) => `<a class="prod" href="${p.url}" style="margin:0"><span class="ico"><img class="symbol" src="assets/icons/${k === 'grinder' ? 'espresso' : k === 'drip' ? 'coffee' : k}.png" alt="" /></span><span style="flex-grow:1"><small>${p.type} · ใช้ได้ ${R.filter(r => EQUIP[r.eq].prods.includes(k)).length} สูตร</small><b>${p.name.startsWith("[") ? p.type : p.name}</b><span class="price">${p.url === "#" ? "โปรดตรวจสอบรุ่นสินค้าก่อนเลือกซื้อ" : p.price}</span></span></a>`).join('')}
+    ${Object.entries(PRODUCTS).map(([k, p]) => `<div class="prod" style="margin:0"><span class="ico"><img class="symbol" src="assets/icons/${k === 'grinder' ? 'espresso' : k === 'drip' ? 'coffee' : k}.png" alt="" /></span><span style="flex-grow:1"><small>${p.type} · ใช้ได้ ${R.filter(r => EQUIP[r.eq].prods.includes(k)).length} สูตร</small><b>${p.name.startsWith("[") ? p.type : p.name}</b><span class="price">${p.url === "#" ? "โปรดตรวจสอบรุ่นสินค้าก่อนเลือกซื้อ" : p.price}</span></span></div>`).join('')}
   </div></div></section>`;
 }
 
 /* ---------- helpers ---------- */
-function fmtT(s) { return s >= 60 ? `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')} นาที` : `${s} วินาที`; }
+function fmtT(s) { return s >= 60 ? `${Math.floor(s / 60)} นาที ${String(s % 60).padStart(2, '0')} วินาที` : `${s} วินาที`; }
 function fmtA(a) {
   if (a === null) return 'ตามชอบ';
   const n = Math.round(a * 10) / 10;
