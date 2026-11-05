@@ -1,0 +1,54 @@
+SMALL LOVERS — Image Asset Audit (48 Recipes)
+
+All 48 recipes have existing image files. 14 newly created stylized full-glass visual assets for recipes 17–30.
+
+01  assets/drinks/espresso.webp
+02  assets/drinks/americano-hot.webp
+03  assets/drinks/cappuccino.webp
+04  assets/drinks/latte-hot.webp
+05  assets/drinks/flat-white.webp
+06  assets/drinks/mocha-hot.webp
+07  assets/drinks/caramel-macchiato.webp
+08  assets/drinks/espresso-tonic.webp
+09  assets/drinks/dirty-coffee.webp
+10  assets/drinks/coconut-americano.webp
+11  assets/drinks/affogato.webp
+12  assets/drinks/cold-brew.webp
+13  assets/drinks/pour-over.webp
+14  assets/drinks/thai-iced-coffee.webp
+15  assets/drinks/thai-milk-tea.webp
+16  assets/drinks/matcha-latte.webp
+17  assets/drinks/matcha-dirty.webp
+18  assets/drinks/hojicha-latte.webp
+19  assets/drinks/london-fog.webp
+20  assets/drinks/chai-latte.webp
+21  assets/drinks/iced-lemon-tea.webp
+22  assets/drinks/peach-oolong.webp
+23  assets/drinks/mocha-frappe.webp
+24  assets/drinks/caramel-frappe.webp
+25  assets/drinks/matcha-frappe.webp
+26  assets/drinks/cocoa-frappe.webp
+27  assets/drinks/mango-smoothie.webp
+28  assets/drinks/strawberry-banana.webp
+29  assets/drinks/coffee-banana.webp
+30  assets/drinks/avocado-coffee.webp
+31  assets/drinks/iced-americano.webp
+32  assets/drinks/iced-latte.webp
+33  assets/drinks/iced-mocha.webp
+34  assets/drinks/coffee-soda.webp
+35  assets/drinks/vanilla-latte.webp
+36  assets/drinks/hazelnut-latte.webp
+37  assets/drinks/coconut-latte.webp
+38  assets/drinks/strawberry-soda.webp
+39  assets/drinks/cream-cheese-coffee.webp
+40  assets/drinks/lemon-rosemary-tonic.webp
+41  assets/drinks/strawberry-milkshake.webp
+42  assets/drinks/chocolate-banana-frappe.webp
+43  assets/drinks/passionfruit-soda.webp
+44  assets/drinks/thai-cheese-tea.webp
+45  assets/drinks/taro-milk.webp
+46  assets/drinks/honey-lemon-tea.webp
+47  assets/drinks/mint-chocolate-frappe.webp
+48  assets/drinks/lychee-soda.webp
+
+NOTE: 14 new assets are digitally illustrated drink visuals, not photographs of a prepared beverage. All other recipe images are unchanged.
