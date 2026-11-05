@@ -1,4 +1,4 @@
-const CACHE = 'drink-recipes-v6-thai-fixed-20261105';
+const CACHE = 'drink-recipes-v7-10-new-drinks-20261105';
 const SHELL = ['./','./index.html','./manifest.webmanifest','./assets/pwa/icon-192.png','./assets/pwa/apple-touch-icon.png','./favicon.ico'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL))));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))));

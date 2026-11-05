@@ -1,7 +1,7 @@
 {
   "name": "SMALL LOVERS by HomePro – สูตรเครื่องดื่ม",
   "short_name": "SMALL LOVERS",
-  "description": "รวมสูตรกาแฟ ชา โซดา และเครื่องดื่มปั่น พร้อมส่วนผสมและวิธีทำ",
+  "description": "สูตรเครื่องดื่ม 48 เมนู พร้อมภาพ ส่วนผสม วิธีทำ และอุปกรณ์",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
