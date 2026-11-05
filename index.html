@@ -273,6 +273,18 @@ body {letter-spacing:0;overflow-x:hidden;background:#0D1D15}
 .detailphoto {object-fit:contain !important;}
 .featurephoto {object-fit:contain !important;}
 @media(max-width:600px){.card .thumb{aspect-ratio:3/4 !important}.card .thumb .drinkphoto{padding:5px}.dhero .art{aspect-ratio:4/5 !important}}
+
+/* V12: wide-screen hero — keep drink photo attached to the content area and fade its left edge */
+@media (min-width:861px){
+  .hero{background:#0C2019 !important;overflow:hidden}
+  .hero::before{content:"";position:absolute;z-index:-2;top:0;bottom:0;right:max(0px,calc(50% - 660px));width:520px;
+    background:url('assets/drinks/hero-iced-latte.webp?v=12') right center / auto 100% no-repeat;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 40%,#000 88%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0%,#000 40%,#000 88%,transparent 100%)}
+}
+@media (min-width:861px) and (max-width:1320px){
+  .hero::before{right:0;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 40%);mask-image:linear-gradient(90deg,transparent 0%,#000 40%)}
+  .hero::after{background:linear-gradient(90deg,rgba(8,24,17,.92) 0%,rgba(8,24,17,.55) 45%,rgba(8,24,17,.08) 100%)}
+}
 </style>
 </head>
 <body>
