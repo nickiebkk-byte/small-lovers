@@ -264,6 +264,15 @@ body {letter-spacing:0;overflow-x:hidden;background:#0D1D15}
 .chibi-tab {width:27px;height:27px;object-fit:contain;vertical-align:middle;flex:none}
 @media(max-width:860px) {.sticker-stat{width:37px;height:37px}}
 
+
+/* V11 recipe imagery: whole glass is visible; portrait photography is never cropped. */
+.card .thumb {aspect-ratio:4/5 !important;height:auto !important;overflow:hidden;position:relative;background:#1b3022;}
+.card .thumb::before{content:"";position:absolute;inset:-12px;background-image:var(--recipe-photo);background-size:cover;background-position:center;filter:blur(14px) brightness(.48);opacity:.8;}
+.card .thumb .drinkphoto{position:relative;z-index:1;width:100%;height:100%;box-sizing:border-box;object-fit:contain !important;object-position:center center !important;padding:8px;transform:none !important;}
+.dhero .art {aspect-ratio:4/5 !important;height:auto !important;max-height:570px;display:flex;align-items:center;justify-content:center;}
+.detailphoto {object-fit:contain !important;}
+.featurephoto {object-fit:contain !important;}
+@media(max-width:600px){.card .thumb{aspect-ratio:3/4 !important}.card .thumb .drinkphoto{padding:5px}.dhero .art{aspect-ratio:4/5 !important}}
 </style>
 </head>
 <body>
@@ -466,9 +475,9 @@ let favs = new Set(store.get('favs', []));
 let myEq = store.get('myEq', []);
 
 const ORIGINAL_IMAGE_MAP = {"1": "assets/drinks/espresso.webp", "3": "assets/drinks/cappuccino.webp", "4": "assets/drinks/latte-hot.webp", "7": "assets/drinks/caramel-macchiato.webp", "15": "assets/drinks/thai-milk-tea.webp", "16": "assets/drinks/matcha-latte.webp"};
-const NEW_PHOTO_MAP = {"2": "assets/drinks/americano-hot.webp", "5": "assets/drinks/flat-white.webp", "6": "assets/drinks/mocha-hot.webp", "8": "assets/drinks/espresso-tonic.webp", "9": "assets/drinks/dirty-coffee.webp", "10": "assets/drinks/coconut-americano.webp", "11": "assets/drinks/affogato.webp", "12": "assets/drinks/cold-brew.webp", "13": "assets/drinks/pour-over.webp", "14": "assets/drinks/thai-iced-coffee.webp", "17": "assets/drinks/matcha-dirty.webp", "18": "assets/drinks/hojicha-latte.webp", "19": "assets/drinks/london-fog.webp", "20": "assets/drinks/chai-latte.webp", "21": "assets/drinks/iced-lemon-tea.webp", "22": "assets/drinks/peach-oolong.webp", "23": "assets/drinks/mocha-frappe.webp", "24": "assets/drinks/caramel-frappe.webp", "25": "assets/drinks/matcha-frappe.webp", "26": "assets/drinks/cocoa-frappe.webp", "27": "assets/drinks/mango-smoothie.webp", "28": "assets/drinks/strawberry-banana.webp", "29": "assets/drinks/coffee-banana.webp", "30": "assets/drinks/avocado-coffee.webp"};
+const NEW_PHOTO_MAP = {"2": "assets/drinks/americano-hot.webp", "5": "assets/drinks/flat-white.webp", "6": "assets/drinks/mocha-hot.webp", "8": "assets/drinks/espresso-tonic.webp", "9": "assets/drinks/dirty-coffee.webp", "10": "assets/drinks/coconut-americano.webp", "11": "assets/drinks/affogato.webp", "12": "assets/drinks/cold-brew.webp", "13": "assets/drinks/pour-over.webp", "14": "assets/drinks/thai-iced-coffee.webp", "17": "assets/drinks/matcha-dirty.webp", "18": "assets/drinks/hojicha-latte.webp", "19": "assets/drinks/london-fog.webp", "20": "assets/drinks/chai-latte.webp", "21": "assets/drinks/iced-lemon-tea.webp", "22": "assets/drinks/peach-oolong.webp", "23": "assets/drinks/mocha-frappe.webp", "24": "assets/drinks/caramel-frappe.webp", "25": "assets/drinks/matcha-frappe-photo-v11.webp", "26": "assets/drinks/cocoa-frappe-photo-v11.webp", "27": "assets/drinks/mango-smoothie-photo-v11.webp", "28": "assets/drinks/strawberry-banana-photo-v11.webp", "29": "assets/drinks/coffee-banana-photo-v11.webp", "30": "assets/drinks/avocado-coffee-photo-v11.webp"};
 const ILLUSTRATED_IMAGE_MAP = {"2": "assets/drinks/art-americano.svg", "5": "assets/drinks/art-flat-white.svg", "6": "assets/drinks/art-mocha.svg", "8": "assets/drinks/art-espresso-tonic.svg", "9": "assets/drinks/art-dirty-coffee.svg", "10": "assets/drinks/art-coconut-americano.svg", "11": "assets/drinks/art-affogato.svg", "12": "assets/drinks/art-cold-brew.svg", "13": "assets/drinks/art-pour-over.svg", "14": "assets/drinks/art-thai-iced-coffee.svg", "17": "assets/drinks/art-dirty-matcha.svg", "18": "assets/drinks/art-hojicha-latte.svg", "19": "assets/drinks/art-london-fog.svg", "20": "assets/drinks/art-chai-latte.svg", "21": "assets/drinks/art-iced-lemon-tea.svg", "22": "assets/drinks/art-peach-oolong.svg", "23": "assets/drinks/art-mocha-frapp.svg", "24": "assets/drinks/art-caramel-frapp.svg", "25": "assets/drinks/art-matcha-frapp.svg", "26": "assets/drinks/art-cocoa-frapp.svg", "27": "assets/drinks/art-mango-smoothie.svg", "28": "assets/drinks/art-strawberry-banana.svg", "29": "assets/drinks/art-coffee-banana.svg", "30": "assets/drinks/art-avocado-coffee.svg"};
-function recipeImage(r) { return r.photo ? `assets/drinks/${r.photo}.webp` : NEW_PHOTO_MAP[r.id] || ORIGINAL_IMAGE_MAP[r.id] || ILLUSTRATED_IMAGE_MAP[r.id] || "assets/drinks/matcha-latte.webp"; }
+function recipeImage(r) { const path = r.photo ? `assets/drinks/${r.photo}.webp` : NEW_PHOTO_MAP[r.id] || ORIGINAL_IMAGE_MAP[r.id] || ILLUSTRATED_IMAGE_MAP[r.id] || "assets/drinks/matcha-latte.webp"; return path + "?v=11"; }
 
 /* ---------- ภาพแก้ว ---------- */
 function cup(r, w) {
@@ -507,7 +516,7 @@ const heart = '<img class="navsymbol" src="assets/icons/heart.png" alt="" />';
 
 function card(r) {
   return `<a class="card" href="#/r/${r.id}">
-    <div class="thumb"><img class="drinkphoto" loading="lazy" src="${recipeImage(r)}" alt="${r.th}" /></div>
+    <div class="thumb" style="--recipe-photo:url('${recipeImage(r)}')"><img class="drinkphoto" loading="lazy" src="${recipeImage(r)}" alt="${r.th}" /></div>
     <div class="meta">
       <span class="no">สูตร ${r.id} · ${CAT[r.cat]}${favs.has(r.id) ? ' · ♥' : ''}</span>
       <span class="th">${r.th}</span>
